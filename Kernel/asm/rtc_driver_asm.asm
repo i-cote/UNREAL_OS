@@ -13,13 +13,12 @@ GLOBAL _setSeconds
 section .text
 
 _startClock:
-;	mov al, 0xb
-;	out 0x70, al
-;	in  al, 0x71
-;;	and  al, 0b1111111
-;	out 0x70, 0xb
-;	out 0x71, al
-;	ret
+	mov al,0xb
+	out 0x70, al
+	mov al,0
+	out 0x71, al
+	ret
+
 _stopClock:
 	mov al,0xb
 	out 0x70, al
