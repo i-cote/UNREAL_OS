@@ -1,4 +1,4 @@
 #ifndef idtLoader_H_
 #define idtLoader_H_
-void load_idt();
+void loadIdt();
 #endif /*idtLoader_H_*/
