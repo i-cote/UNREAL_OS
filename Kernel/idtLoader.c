@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <defs.h>
 #include <interrupts.h>
+#include <peripheralsInitialiser.h>
 
 #pragma pack(push)		/* Push de la alineación actual */
 #pragma pack (1) 		/* Alinear las siguiente estructuras a 1 byte */
@@ -29,7 +30,9 @@ void loadIdt() {
 
 	//Solo teclado habilitado
 	picMasterMask(0xfd); 
-        
+
+	initialisePeripherals();
+
 	_sti();
 }
 
