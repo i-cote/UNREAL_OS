@@ -1,0 +1,4 @@
+#ifndef PERIPHERALS_INITIALISER_H
+#define PERIPHERALS_INITIALISER_H
+void initialisePeripherals();
+#endif /* PERIPHERALS_INITIALISER_H */
