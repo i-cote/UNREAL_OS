@@ -2,6 +2,7 @@ GLOBAL _cli
 GLOBAL _sti
 GLOBAL picMasterMask
 GLOBAL _irq01Handler
+GLOBAL _irq00Handler
 
 EXTERN irqDispatcher
 
@@ -72,6 +73,9 @@ picMasterMask:
 	popState
 	iretq
 %endmacro
+
+_irq00Handler:
+	irqHandlerMaster 0 
 
 ;Keyboard
 _irq01Handler:
