@@ -17,6 +17,7 @@ static void addKeyPress(uint16_t scanCode)
 			return;
 	keyboardState.keys[keyboardState.nbOfPressedKeys] = scanCode;
 	keyboardState.nbOfPressedKeys++;
+	newInputToConsole(keyboardState);
 	_sti();
 }
 
@@ -34,6 +35,7 @@ static void removeKeyPress(uint16_t scanCode)
 			break;
 		}
 	}
+	newInputToConsole(keyboardState);
 	_sti();
 }
 
