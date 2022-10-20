@@ -25,10 +25,11 @@ struct language_mapping
 	const struct special_keys specialKeys;
 };
 
+#include "argentinian.consolemap.h"
 #include "french.consolemap.h"
 
 
-static struct language_mapping * current_language_mapping = &fr_mapping;
+static struct language_mapping * current_language_mapping = &ar_mapping;
 
 const char * console_mapper (const struct pressedKeys * keyboardState)
 {
