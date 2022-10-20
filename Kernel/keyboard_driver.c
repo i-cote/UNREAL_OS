@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <interrupts.h>
 #include <keyboard_driver.h>
+#include <console_driver.h>
 
 static uint8_t scanCodeComplete = true;
 static uint16_t currentScanCode;
@@ -14,28 +15,27 @@ static void addKeyPress(uint16_t scanCode)
 		return;
 	for(int i = 0;i<keyboardState.nbOfPressedKeys;i++)
 		if(keyboardState.keys[i] == scanCode)
+		{
+			newInputToConsole(&keyboardState);
 			return;
+		}
 	keyboardState.keys[keyboardState.nbOfPressedKeys] = scanCode;
 	keyboardState.nbOfPressedKeys++;
-	newInputToConsole(keyboardState);
+	newInputToConsole(&keyboardState);
 	_sti();
 }
 
 static void removeKeyPress(uint16_t scanCode)
 {
 	for(int i =0;i<keyboardState.nbOfPressedKeys;i++)
-	{
 		if(keyboardState.keys[i] == scanCode)
 		{
 			for(int j=i;j<keyboardState.nbOfPressedKeys-1;j++)
-			{
 				keyboardState.keys[j] = keyboardState.keys[j+1];
-			}
 			keyboardState.nbOfPressedKeys--;
 			break;
 		}
-	}
-	newInputToConsole(keyboardState);
+	newInputToConsole(&keyboardState);
 	_sti();
 }
 
@@ -48,45 +48,10 @@ void initialiseKeyboard()
 
 static void updateCurrentPressedKeys(uint16_t scan)
 {
-	//it's a one byte scancode
-	if(!(scan & 0xFF00))
-	{
-		//we are releasing a key
-		if(scan>0x80)	
-		{
-			scan-=0x80;
-			//make sure the scan code is one that the driver handles
-			if((scan<=0x3a && scan!=0 && scan!=0x29 && scan!=0x37)||scan==0x56)
-				removeKeyPress(scan);
-		}
-		//we are pressing a key
-		else
-		{
-			//make sure the scan code is one that the driver handles
-			if((scan<=0x3a && scan !=0 && scan!=0x29 && scan!=0x37)||scan==0x56)
-				addKeyPress(scan);	
-		}
-	}
-	//it's a two byte scancode
+	if((scan&0xFF)>0x80)
+		removeKeyPress(scan-0x80);
 	else
-	{
-		scan &= 0xFF;
-		//we are releasing a key
-		if(scan>0x80)
-		{
-			scan-=0x80;
-			//make sure the scan code is one that the driver handles
-			if(scan==0x38 || scan == 0x48 || scan == 0x4b || scan == 0x4d || scan == 0x50 || scan == 0x5b)
-				removeKeyPress(scan);
-		}
-		//we are pressing a key
-		else
-		{
-			//make sure the scan code is one that the driver handles
-			if(scan==0x38 || scan == 0x48 || scan == 0x4b || scan == 0x4d || scan == 0x50 || scan == 0x5b)
-				addKeyPress(scan);
-		}
-	}
+		addKeyPress(scan);
 }
 
 void fetchKeyboardEvent()
