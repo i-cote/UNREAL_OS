@@ -25,7 +25,7 @@ struct language_mapping
 	const struct special_keys specialKeys;
 };
 
-#include "french.consolemap"
+#include "french.consolemap.h"
 
 
 static struct language_mapping * current_language_mapping = &fr_mapping;
