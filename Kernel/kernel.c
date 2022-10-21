@@ -4,6 +4,7 @@
 #include <moduleLoader.h>
 #include <naiveConsole.h>
 #include <idtLoader.h>
+#include <video.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -86,6 +87,7 @@ int main()
 	ncClear();
 	ncPrint("[Kernel Main]");
 	loadIdt();
+	printChar();
 	ncNewline();
 	ncPrint("IDT Loaded");
 	ncNewline();

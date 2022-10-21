@@ -7,5 +7,6 @@
 void * getPosToPrint(uint16_t x, uint16_t y);
 void putPixel(uint16_t x, uint16_t y, Color color);
 boolean checkValidPos();
+void printChar();
 
 #endif
