@@ -2,49 +2,8 @@
 #include <stdint.h>
 #include <color.h>
 #include <defs.h>
-
-
-
-int vector[16][9] =        {
-						   {1,1,1,1,1,1,1,1,1}, 
-                           {1,0,0,0,0,0,0,0,1}, 
-                           {1,0,0,0,0,0,0,0,1}, 
-                           {1,0,0,0,0,0,0,0,1}, 
-                           {1,0,0,0,0,0,0,0,1}, 
-                           {1,0,0,0,0,0,0,0,1}, 
-                           {1,0,0,0,0,0,0,0,1}, 
-                           {1,0,0,0,0,0,0,0,1}, 
-                           {1,0,0,0,0,0,0,0,1},
-                           {1,0,0,0,0,0,0,0,1},
-                           {1,0,0,0,0,0,0,0,1},
-                           {1,0,0,0,0,0,0,0,1},
-                           {1,0,0,0,0,0,0,0,1},
-                           {1,0,0,0,0,0,0,0,1},
-                           {1,0,0,0,0,0,0,0,1},
-                           {1,1,1,1,1,1,1,1,1}
-                           };
-
-int vector2[16][9] =        {
-						   {0,0,0,0,0,0,0,0,0}, 
-                           {0,0,0,0,0,0,0,0,0}, 
-                           {0,0,1,0,0,0,0,0,0}, 
-                           {0,0,1,0,0,0,0,0,0}, 
-                           {0,0,1,0,0,0,0,0,0}, 
-                           {0,0,1,0,0,0,0,0,0}, 
-                           {0,0,1,0,0,0,0,0,0}, 
-                           {0,0,1,0,0,0,0,0,0}, 
-                           {0,0,1,0,0,0,0,0,0},
-                           {0,0,1,0,0,0,0,0,0},
-                           {0,0,1,0,0,0,0,0,0},
-                           {0,0,1,0,0,0,0,0,0},
-                           {0,0,1,0,0,0,0,0,0},
-                           {0,0,1,1,1,1,1,0,0},
-                           {0,0,0,0,0,0,0,0,0},
-                           {0,0,0,0,0,0,0,0,0}
-                           };						   
-
-int random[4][4] = {{1,1,1,1},{0,0,0,0},{1,1,1,1},{0,0,0,0}};
-
+#include <font.h>
+#include <video.h>
 
 
 struct vbe_mode_info_structure {
@@ -85,6 +44,11 @@ struct vbe_mode_info_structure {
 	uint8_t reserved1[206];
 } __attribute__ ((packed)); 
 
+//Current positions
+uint16_t x = 0, y = 0;
+
+//Default color of the font
+Color defaultColor = {0x7F, 0x7F, 0x7F};
 
 typedef struct vbe_mode_info_structure VBEModeInfoBlock;
 static VBEModeInfoBlock * screen_data = (void *)0x5C00;
@@ -111,14 +75,32 @@ void putPixel(uint16_t x, uint16_t y, Color color){
 	*pos = color;
 }
 
-void printChar(){
-	for (int i = 0; i < 16; i++)
-	{
-		for (int j = 0; j < 9; j++)
-		{
-			if(vector2[i][j]){
-				putPixel((uint16_t)j, (uint16_t)i, cyan);
-			}
-		}	
-	}
+
+void printChar(char c) {
+    if (c == '\n') {
+        //scr_printNewline();
+        return;
+    }
+
+    if (c >= FIRST_CHAR && c <= LAST_CHAR) {
+	    const char* data = font + 32*(c-33);
+	    for (int h=0; h<16; h++) {
+    		Color* pos = (Color*)getPosToPrint(x, y+h);
+    		if (*data & 0b00000001) pos[0] = defaultColor;
+    		if (*data & 0b00000010) pos[1] = defaultColor;
+    		if (*data & 0b00000100) pos[2] = defaultColor;
+    		if (*data & 0b00001000) pos[3] = defaultColor;
+    		if (*data & 0b00010000) pos[4] = defaultColor;
+    		if (*data & 0b00100000) pos[5] = defaultColor;
+    		if (*data & 0b01000000) pos[6] = defaultColor;
+    		if (*data & 0b10000000) pos[7] = defaultColor;
+    		data++;
+    		if (*data & 0b00000001) pos[8] = defaultColor;
+    		data++;
+    	}
+    }
+
+    x += CHAR_WIDTH;
+    //if (x > screen_data->width - CHAR_WIDTH)
+        //scr_printNewline();
 }

@@ -87,7 +87,10 @@ int main()
 	ncClear();
 	ncPrint("[Kernel Main]");
 	loadIdt();
-	printChar();
+	printChar('B');
+	printChar('O');
+	printChar('C');
+	printChar('A');
 	ncNewline();
 	ncPrint("IDT Loaded");
 	ncNewline();
