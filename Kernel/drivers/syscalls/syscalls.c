@@ -1,7 +1,9 @@
 #include <stdint.h>
 #include <video.h>
 #include <keyboard_driver.h>
+#include <syscalls.h>
 
+//Here all the syscall handler functions
 
 uint64_t sys_read(int fd, char * str, int length){
    int i=0;
@@ -30,13 +32,14 @@ uint64_t sys_read(int fd, char * str, int length){
     }
 }
 
+
 uint64_t sys_write(int fd, char * str, int length){
     switch (fd){
-        case 1:
+        case STDOUT:
             printNewline();
             printString(str);
             return length;
-        case 2:
+        case STDERR:
             printNewline();
             printStringColor(str, red);
             return length;

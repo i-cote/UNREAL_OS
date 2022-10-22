@@ -1,20 +1,22 @@
+
 #include <stdarg.h>
 #include <syscallsAPI.h>
 #include <string.h>
 #include <stdioAPI.h>
-#include <video.h>
 
 
-void putChar(char c) {
+/*void putChar(char c) {
     printChar(c);
     return;
 }
+*/
 
 char getChar() {
     char c[2] = {0};
     sys_read_asm(1,c,1);
     return c[0];
 }
+
 
 int printf(const char* str, ...) {
     va_list vl;
@@ -68,6 +70,7 @@ int printf(const char* str, ...) {
     va_end(vl);
     return j;
 }
+
 int scanf(const char* str, ...) {
     va_list vl;
     int i = 0, j=0, ret = 0;
@@ -177,4 +180,3 @@ char* itoa(int num, char* str, int base)
   
     return str;
 }
-

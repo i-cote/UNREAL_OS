@@ -1,5 +1,6 @@
 GLOBAL _cli
 GLOBAL _sti
+GLOBAL _hlt
 GLOBAL picMasterMask
 GLOBAL _irq01Handler
 GLOBAL _irq00Handler
@@ -20,6 +21,12 @@ _cli:
 _sti:
 	sti
 	ret
+
+_hlt:
+	sti
+	hlt
+	ret
+
 
 picMasterMask:
 	push rbp
