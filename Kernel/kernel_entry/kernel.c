@@ -87,6 +87,7 @@ int main()
 	ncClear();
 	ncPrint("[Kernel Main]");
 	loadIdt();
+	setBackgroundColor();
 	printChar('B');
 	printChar('O');
 	printChar('C');

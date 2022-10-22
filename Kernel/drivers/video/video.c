@@ -44,11 +44,9 @@ struct vbe_mode_info_structure {
 	uint8_t reserved1[206];
 } __attribute__ ((packed)); 
 
+
 //Current positions
 uint16_t x = 0, y = 0;
-
-//Default color of the font
-Color defaultColor = {0x7F, 0x7F, 0x7F};
 
 typedef struct vbe_mode_info_structure VBEModeInfoBlock;
 static VBEModeInfoBlock * screen_data = (void *)0x5C00;
@@ -75,10 +73,22 @@ void putPixel(uint16_t x, uint16_t y, Color color){
 	*pos = color;
 }
 
+void setBackgroundColor(){
+	for (int i = 0; i < SCREEN_WIDTH; i++)
+	{
+		for (int j = 0; j < SCREEN_HEIGHT; j++)
+		{
+			putPixel((uint16_t)i,(uint16_t)j, navy);
+		}
+		
+	}
+	
+}
 
 void printChar(char c) {
     if (c == '\n') {
-        //scr_printNewline();
+		//We have to implement the following function
+        //printNewline();
         return;
     }
 
@@ -86,21 +96,21 @@ void printChar(char c) {
 	    const char* data = font + 32*(c-33);
 	    for (int h=0; h<16; h++) {
     		Color* pos = (Color*)getPosToPrint(x, y+h);
-    		if (*data & 0b00000001) pos[0] = defaultColor;
-    		if (*data & 0b00000010) pos[1] = defaultColor;
-    		if (*data & 0b00000100) pos[2] = defaultColor;
-    		if (*data & 0b00001000) pos[3] = defaultColor;
-    		if (*data & 0b00010000) pos[4] = defaultColor;
-    		if (*data & 0b00100000) pos[5] = defaultColor;
-    		if (*data & 0b01000000) pos[6] = defaultColor;
-    		if (*data & 0b10000000) pos[7] = defaultColor;
+    		if (*data & 0b00000001) pos[0] = white;
+    		if (*data & 0b00000010) pos[1] = white;
+    		if (*data & 0b00000100) pos[2] = white;
+    		if (*data & 0b00001000) pos[3] = white;
+    		if (*data & 0b00010000) pos[4] = white;
+    		if (*data & 0b00100000) pos[5] = white;
+    		if (*data & 0b01000000) pos[6] = white;
+    		if (*data & 0b10000000) pos[7] = white;
     		data++;
-    		if (*data & 0b00000001) pos[8] = defaultColor;
+    		if (*data & 0b00000001) pos[8] = white;
     		data++;
     	}
     }
 
     x += CHAR_WIDTH;
     //if (x > screen_data->width - CHAR_WIDTH)
-        //scr_printNewline();
+        //printNewline();
 }
