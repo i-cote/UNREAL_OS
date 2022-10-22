@@ -93,7 +93,7 @@ int main()
 	printChar('A');
 	
 	for (int i = 0; i < 100; i++) {
-		printString("MARIANO SE LA COME");
+		printString("ESTA ES UNA LINEA DE TEXTO");
 		printNewline();
 	}
 	return 0;
