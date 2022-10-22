@@ -87,7 +87,6 @@ void setBackgroundColor(){
 
 void printChar(char c) {
     if (c == '\n') {
-		//We have to implement the following function
         printNewline();
         return;
     }

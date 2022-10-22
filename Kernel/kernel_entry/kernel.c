@@ -92,9 +92,6 @@ int main()
 	printChar('C');
 	printChar('A');
 	
-	for (int i = 0; i < 100; i++) {
-		printString("ESTA ES UNA LINEA DE TEXTO");
-		printNewline();
-	}
+	printString("Hola");
 	return 0;
 }
