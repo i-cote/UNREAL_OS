@@ -52,6 +52,7 @@ int main()
 	
 	//Here we go to userland!
 	((EntryPoint)sampleCodeModuleAddress)();
+	while(1);
 
 	return 0;
 }
