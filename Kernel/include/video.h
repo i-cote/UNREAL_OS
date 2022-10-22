@@ -20,5 +20,7 @@ void printChar(char c);
 void setBackgroundColor();
 void printNewline();
 void printString(char * string);
+void printCharColor(char c, Color color);
+void printStringColor(char * str, Color color);
 
 #endif

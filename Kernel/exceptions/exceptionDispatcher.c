@@ -1,4 +1,4 @@
-#include <naiveConsole.h>
+#include <video.h>
 #include <interrupts.h>
 #define ZERO_EXCEPTION_ID 0
 #define INVALID_OPCODE_EXECPTION_ID 6
@@ -22,13 +22,13 @@ void exceptionDispatcher(int exception) {
 }
 
 static void zero_division() { //MDOIFICAR PARA MODO VIDEO 
-	ncPrint("no dividas por cero bola ");
+	printString("Zero division exception");
 	while (1)	{}  
 	//llama a shell
 	
 }
 
 static void invalid_opcode() {
-	ncPrint("invalid opcode");
+	printString("Invalid opcode exception");
 	while (1)	{} 
 }

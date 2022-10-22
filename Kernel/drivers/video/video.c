@@ -85,8 +85,8 @@ void setBackgroundColor(){
 	
 }
 
-void printChar(char c) {
-    if (c == '\n') {
+void printCharColor(char c, Color color){
+	if (c == '\n') {
         printNewline();
         return;
     }
@@ -95,16 +95,16 @@ void printChar(char c) {
 	    const char* data = font + 32*(c-33);
 	    for (int h=0; h<16; h++) {
     		Color* pos = (Color*)getPosToPrint(x, y+h);
-    		if (*data & 0b00000001) pos[0] = white;
-    		if (*data & 0b00000010) pos[1] = white;
-    		if (*data & 0b00000100) pos[2] = white;
-    		if (*data & 0b00001000) pos[3] = white;
-    		if (*data & 0b00010000) pos[4] = white;
-    		if (*data & 0b00100000) pos[5] = white;
-    		if (*data & 0b01000000) pos[6] = white;
-    		if (*data & 0b10000000) pos[7] = white;
+    		if (*data & 0b00000001) pos[0] = color;
+    		if (*data & 0b00000010) pos[1] = color;
+    		if (*data & 0b00000100) pos[2] = color;
+    		if (*data & 0b00001000) pos[3] = color;
+    		if (*data & 0b00010000) pos[4] = color;
+    		if (*data & 0b00100000) pos[5] = color;
+    		if (*data & 0b01000000) pos[6] = color;
+    		if (*data & 0b10000000) pos[7] = color;
     		data++;
-    		if (*data & 0b00000001) pos[8] = white;
+    		if (*data & 0b00000001) pos[8] = color;
     		data++;
     	}
     }
@@ -112,6 +112,10 @@ void printChar(char c) {
     x += CHAR_WIDTH;
     if (x > screen_data->width - CHAR_WIDTH)
         printNewline();
+}
+
+void printChar(char c) {
+    printCharColor(c, white);
 }
 
 void printNewline() {
@@ -123,11 +127,15 @@ void printNewline() {
 	}
 }
 
-void printString(char * string) {
-	int i = 0;
-	while (string[i] != '\0') {
-		printChar(string[i++]);
+void printStringColor(char * str, Color color){
+	while(*str != '\0'){
+		printCharColor(*str, color);
+		str++;
 	}
+}
+
+void printString(char * string) {
+	printStringColor(string, white);
 }
 
 

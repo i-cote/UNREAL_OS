@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include <naiveConsole.h>
+#include <video.h>
 #include <keyboard_driver.h>
 
 
@@ -9,8 +9,8 @@ uint64_t sys_read(int fd, char * str, int length){
    switch (fd)
    {
         case 1:
-            ncNewline();
-            ncPrint("stdin: ");
+            printNewline();
+            printString("stdin: ");
             /*while((c = fetchKeyboardEvent()) != '\n' && i < length){
                 if (c != 0){
                     str[i] = c;
@@ -22,7 +22,7 @@ uint64_t sys_read(int fd, char * str, int length){
                     ncPrintChar(c);
                 }
             }*/       //ver como pasar una tecla del driver para poder usarla
-            ncNewline();
+            printNewline();
             str[i] = 0;
             return i;
         default:
@@ -33,12 +33,12 @@ uint64_t sys_read(int fd, char * str, int length){
 uint64_t sys_write(int fd, char * str, int length){
     switch (fd){
         case 1:
-            ncNewline();
-            ncPrint(str);
+            printNewline();
+            printString(str);
             return length;
         case 2:
-            ncNewline();
-            //ncPrintAttribute(str, 0x04);
+            printNewline();
+            printStringColor(str, red);
             return length;
         default:
             return -1;

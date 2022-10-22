@@ -92,6 +92,8 @@ int main()
 	printChar('C');
 	printChar('A');
 	
-	printString("Hola");
+	for(int i = 0; i < 200; i++){
+		printChar('A');
+	}
 	return 0;
 }
