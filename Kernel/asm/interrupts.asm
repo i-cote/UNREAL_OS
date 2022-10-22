@@ -3,8 +3,12 @@ GLOBAL _sti
 GLOBAL picMasterMask
 GLOBAL _irq01Handler
 GLOBAL _irq00Handler
+GLOBAL _irq60Handler
+GLOBAL _exception0Handler
+GLOBAL _exception6Handler
 
 EXTERN irqDispatcher
+EXTERN exceptionDispatcher
 
 SECTION .text
 
@@ -74,6 +78,16 @@ picMasterMask:
 	iretq
 %endmacro
 
+%macro exceptionHandler 1
+	pushState
+
+	mov rdi, %1 ; pasaje de parametro
+	call exceptionDispatcher
+
+	popState
+	iretq
+%endmacro
+
 _irq00Handler:
 	irqHandlerMaster 0 
 
@@ -81,6 +95,26 @@ _irq00Handler:
 _irq01Handler:
 	irqHandlerMaster 1
 
+_irq60Handler:
+	pushState
+	mov rbp, rsp
+
+	mov r8,rcx
+	mov rcx,rdx
+	mov rdx,rsi
+	mov rsi,rdi
+	mov rdi, 60h
+	call irqDispatcher
+
+	mov rsp,rbp
+	popState
+	iretq
+
+_exception0Handler:
+	exceptionHandler 0
+
+_exception6Handler:
+	exceptionHandler 6
 
 SECTION .bss
 	aux resq 1
