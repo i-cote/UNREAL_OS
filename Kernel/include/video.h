@@ -18,5 +18,7 @@ void putPixel(uint16_t x, uint16_t y, Color color);
 boolean checkValidPos(uint16_t x, uint16_t y);
 void printChar(char c);
 void setBackgroundColor();
+void printNewline();
+void printString(char * string);
 
 #endif

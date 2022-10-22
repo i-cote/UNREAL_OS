@@ -88,7 +88,7 @@ void setBackgroundColor(){
 void printChar(char c) {
     if (c == '\n') {
 		//We have to implement the following function
-        //printNewline();
+        printNewline();
         return;
     }
 
@@ -111,6 +111,24 @@ void printChar(char c) {
     }
 
     x += CHAR_WIDTH;
-    //if (x > screen_data->width - CHAR_WIDTH)
-        //printNewline();
+    if (x > screen_data->width - CHAR_WIDTH)
+        printNewline();
 }
+
+void printNewline() {
+	x = 0;
+	y += CHAR_HEIGHT;
+	if (y > screen_data->height - CHAR_HEIGHT){
+		setBackgroundColor();
+		y=0;
+	}
+}
+
+void printString(char * string) {
+	int i = 0;
+	while (string[i] != '\0') {
+		printChar(string[i++]);
+	}
+}
+
+

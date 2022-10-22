@@ -84,35 +84,17 @@ void * initializeKernelBinary()
 
 int main()
 {	
-	ncClear();
-	ncPrint("[Kernel Main]");
 	loadIdt();
 	setBackgroundColor();
 	printChar('B');
+	printNewline();
 	printChar('O');
 	printChar('C');
 	printChar('A');
-	ncNewline();
-	ncPrint("IDT Loaded");
-	ncNewline();
-	ncPrint("InfiniteLoopToTestKeyboard ->");
-	ncNewline();
-	while(1);
-	ncPrint("  Sample code module at 0x");
-	ncPrintHex((uint64_t)sampleCodeModuleAddress);
-	ncNewline();
-	ncPrint("  Calling the sample code module returned: ");
-	ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
-	ncNewline();
-	ncNewline();
-
-	ncPrint("  Sample data module at 0x");
-	ncPrintHex((uint64_t)sampleDataModuleAddress);
-	ncNewline();
-	ncPrint("  Sample data module contents: ");
-	ncPrint((char*)sampleDataModuleAddress);
-	ncNewline();
-
-	ncPrint("[Finished]");
+	
+	for (int i = 0; i < 100; i++) {
+		printString("MARIANO SE LA COME");
+		printNewline();
+	}
 	return 0;
 }
