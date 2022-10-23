@@ -2,6 +2,7 @@
     "files.associations": {
         "color.h": "c",
         "stdioapi.h": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "stdint.h": "c"
     }
 }
