@@ -1,15 +1,23 @@
+
 GLOBAL _cli
 GLOBAL _sti
 GLOBAL _hlt
+
 GLOBAL picMasterMask
-GLOBAL _irq01Handler
-GLOBAL _irq00Handler
-GLOBAL _irq60Handler
+GLOBAL picSlaveMask
+
 GLOBAL _exception0Handler
 GLOBAL _exception6Handler
 
+GLOBAL timerRoutine
+Global keyboardRoutine
+Global systemCallsRoutine
+
 EXTERN irqDispatcher
+EXTERN timer_handler
 EXTERN exceptionDispatcher
+EXTERN fetchKeyboardEvent
+EXTERN syscallHandler
 
 SECTION .text
 
@@ -27,7 +35,6 @@ _hlt:
 	hlt
 	ret
 
-
 picMasterMask:
 	push rbp
     mov rbp, rsp
@@ -35,6 +42,15 @@ picMasterMask:
     out	21h,al
     pop rbp
     retn
+
+picSlaveMask:
+	push rbp
+    mov rbp, rsp
+    mov ax, di
+    out 0A1h, al
+    pop rbp
+    retn
+
 %macro pushState 0
 	push rax
 	push rbx
@@ -95,23 +111,39 @@ picMasterMask:
 	iretq
 %endmacro
 
-_irq00Handler:
-	irqHandlerMaster 0 
+%macro endInterrupt 0
+	; signal pic EOI (End of Interrupt)
+	mov al, 20h
+	out 20h, al
+%endmacro
 
-;Keyboard
-_irq01Handler:
-	irqHandlerMaster 1
+timerRoutine:
+    pushState
 
-_irq60Handler:
+	call timer_handler
+
+	; signal pic EOI (End of Interrupt)
+	endInterrupt
+
+	popState
+	iretq
+
+keyboardRoutine:
+    pushState
+
+	call fetchKeyboardEvent
+
+	; signal pic EOI (End of Interrupt)
+	endInterrupt
+
+	popState
+	iretq
+
+systemCallsRoutine:
 	pushState
 	mov rbp, rsp
 
-	mov r8,rcx
-	mov rcx,rdx
-	mov rdx,rsi
-	mov rsi,rdi
-	mov rdi, 60h
-	call irqDispatcher
+	call syscallHandler
 
 	mov rsp,rbp
 	popState

@@ -13,6 +13,8 @@
 
 char getChar() {
     char c[2] = {0};
+	//We are going to read only one character
+	//Fd is one because we are reading from keyboard
     sys_read_asm(1,c,1);
     return c[0];
 }

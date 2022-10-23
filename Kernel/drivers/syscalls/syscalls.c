@@ -2,31 +2,53 @@
 #include <video.h>
 #include <keyboard_driver.h>
 #include <syscalls.h>
+#include <console_driver.h>
+
+
+static uint64_t (*syscalls[256]) (int,char *, int);
+
+//Function pointers to the handlers
+
+
+void initializeSyscallsArray() {
+	syscalls[READ_PORT] = sys_read;
+	syscalls[WRITE_PORT] = sys_write;
+}
+
+
+//arg is the number of syscall
+void syscallHandler(int arg, int fd, char * str, int length){
+	//The args are the following: rdi, rsi, rdx
+	(*syscalls[arg])(fd, str, length);
+}
 
 //Here all the syscall handler functions
 
+//In this case, *str is the buffer and lenght his dim
 uint64_t sys_read(int fd, char * str, int length){
    int i=0;
-   uint8_t c;
+   char c;
    switch (fd)
    {
-        case 1:
+        case STDIN:
             printNewline();
             printString("stdin: ");
-            /*while((c = fetchKeyboardEvent()) != '\n' && i < length){
-                if (c != 0){
-                    str[i] = c;
-                    ncPrintChar(c);
-                    i++;
-                }
+            /*//Now expecting for keyboardInterrupts
+            while((c=buffer_read[0]) != '\n' && i < length){
                 if(c == '\b'){
                     i-=2;
-                    ncPrintChar(c);
+                    printChar(c);
                 }
-            }*/       //ver como pasar una tecla del driver para poder usarla
+                else{
+                    str[i] = c;
+                    printChar(c);
+                    i++;
+                }
+            }                            //ver como pasar una tecla del driver para poder usarla
             printNewline();
             str[i] = 0;
             return i;
+            */
         default:
             return -1;
     }

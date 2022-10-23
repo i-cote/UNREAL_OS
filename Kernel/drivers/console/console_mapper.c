@@ -1,5 +1,6 @@
 #include <keyboard_driver.h>
 
+//No scancode redef like undef
 #define UNDEF (char*)0
 #define STATE_CHANGE_KEY (char*)0
 #define SIZE_MAIN_MAP 0x56
@@ -28,7 +29,7 @@ struct language_mapping
 #include "argentinian.consolemap.h"
 #include "french.consolemap.h"
 
-
+//Currently mapping wih argentinian map ;)
 static struct language_mapping * current_language_mapping = &ar_mapping;
 
 const char * console_mapper (const struct pressedKeys * keyboardState)

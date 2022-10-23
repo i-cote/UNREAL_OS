@@ -16,11 +16,13 @@ static void addKeyPress(uint16_t scanCode)
 	for(int i = 0;i<keyboardState.nbOfPressedKeys;i++)
 		if(keyboardState.keys[i] == scanCode)
 		{
+			//Showing the input in console	
 			newInputToConsole(&keyboardState);
 			return;
 		}
 	keyboardState.keys[keyboardState.nbOfPressedKeys] = scanCode;
 	keyboardState.nbOfPressedKeys++;
+	//Showing the input in console	
 	newInputToConsole(&keyboardState);
 	_sti();
 }
@@ -35,6 +37,8 @@ static void removeKeyPress(uint16_t scanCode)
 			keyboardState.nbOfPressedKeys--;
 			break;
 		}
+
+	//Showing the input in console	
 	newInputToConsole(&keyboardState);
 	_sti();
 }
@@ -54,12 +58,13 @@ static void updateCurrentPressedKeys(uint16_t scan)
 		addKeyPress(scan);
 }
 
+//This is the keyboard handler!!!
 void fetchKeyboardEvent()
 {
 	//we are disabling the interrupts 
 	//to maintain the coherence of the keyboardState data structure
 	_cli();
-
+	//Reading the scancode for port 60h (keyboard_driver_asm)
 	uint8_t scanCodeByte = fetchScanCodeByte();
 
 	//if the fetched byte is the first byte of the scan code

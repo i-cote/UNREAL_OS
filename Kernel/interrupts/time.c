@@ -1,9 +1,9 @@
 #include <time.h>
-#include <naiveConsole.h>
+#include <video.h>
 
 static unsigned long ticks = 0;
 
-void timer_handler() {
+void timer_handler(void) {
 	ticks++;
 }
 

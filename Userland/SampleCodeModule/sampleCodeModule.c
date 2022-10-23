@@ -2,6 +2,11 @@
 #include <stdioAPI.h>
 
 int main() {
-	printf("Aguante bocaaaaaa");
+	
+	printf("Funca maestro");
+	printf("Como andas?");
+	while (1)
+	
+
 	return 0;
 }
