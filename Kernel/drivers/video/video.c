@@ -78,7 +78,7 @@ void setBackgroundColor(){
 	{
 		for (int j = 0; j < SCREEN_HEIGHT; j++)
 		{
-			putPixel((uint16_t)i,(uint16_t)j, navy);
+			putPixel((uint16_t)i,(uint16_t)j, black);
 		}
 		
 	}
@@ -136,6 +136,68 @@ void printStringColor(char * str, Color color){
 
 void printString(char * string) {
 	printStringColor(string, white);
+}
+
+void printDec(uint64_t n) {
+	if (n == 0) {
+		printChar('0');
+		return;
+	}
+
+	uint64_t aux = n;
+	uint8_t digits = 0;
+	while (aux > 0) {
+		digits++;
+		aux /= 10;
+	}
+
+	char str[digits+1];
+	str[digits] = '\0';
+	for (int i = digits-1; i >= 0; i--) {
+		str[i] = '0' + n % 10;
+		n /= 10;
+	}
+
+	printString(str);
+}
+
+void printHex(uint64_t n) {
+	printString("0x");
+	if (n == 0) {
+		printChar('0');
+		return;
+	}
+
+	uint64_t aux = n;
+	uint8_t digits = 0;
+	while (aux > 0) {
+		digits++;
+		aux /= 16;
+	}
+
+	char str[digits+1];
+	str[digits] = '\0';
+	for (int i = digits-1; i >= 0; i--) {
+		uint8_t digit = n % 16;
+		if (digit < 10)
+			str[i] = '0' + digit;
+		else
+			str[i] = 'A' + digit - 10;
+		n /= 16;
+	}
+
+	printString(str);
+}
+
+void printBlock() {
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 16; j++) {
+			putPixel(x+j, y+i, white);
+		}
+	}
+	x += 16;
+	if (x > screen_data->width - 16)
+		printNewline();
 }
 
 
