@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <defs.h>
 #include <interrupts.h>
-#include <irqDispatcher.h>
 #include <video.h>
 
 #pragma pack(push)		/* Push de la alineación actual */

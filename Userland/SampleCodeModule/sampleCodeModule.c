@@ -1,12 +1,8 @@
 /* sampleCodeModule.c */
 #include <stdioAPI.h>
+#include <shell.h>
 
 int main() {
-	
-	printf("Funca maestro");
-	printf("Como andas?");
-	while (1)
-	
-
+	shell();
 	return 0;
 }

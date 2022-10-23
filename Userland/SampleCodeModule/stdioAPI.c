@@ -109,6 +109,14 @@ int scanf(const char* str, ...) {
 	 	           ret++;
 	 	           break;
  	            }
+				case 's':
+				{
+					char * str = va_arg( vl, char *);
+					strcpy(str, &buff[j]);
+					j += strlen(str);
+					ret++;
+					break;
+				}
  	        }
  	    } 
  	    else 
@@ -167,7 +175,7 @@ char* itoa(int num, char* str, int base)
     while (num != 0)
     {
         int rem = num % base;
-        str[i++] = (rem > 9)? (rem-10) + 'a' : rem + '0';
+        str[i++] = (rem > 9)? (rem-10) + 'A' : rem + '0';
         num = num/base;
     }
  

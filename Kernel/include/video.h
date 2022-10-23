@@ -22,5 +22,8 @@ void printNewline();
 void printString(char * string);
 void printCharColor(char c, Color color);
 void printStringColor(char * str, Color color);
+void printDec(uint64_t num);
+void printHex(uint64_t num);
+void printBlock();
 
 #endif

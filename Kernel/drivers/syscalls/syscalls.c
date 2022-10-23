@@ -58,11 +58,9 @@ uint64_t sys_read(int fd, char * str, int length){
 uint64_t sys_write(int fd, char * str, int length){
     switch (fd){
         case STDOUT:
-            printNewline();
             printString(str);
             return length;
         case STDERR:
-            printNewline();
             printStringColor(str, red);
             return length;
         default:
