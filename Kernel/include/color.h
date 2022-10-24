@@ -11,19 +11,19 @@ typedef struct {
 	uint8_t r;
 } Color;
 
-extern Color white;
-extern Color red;
-extern Color lime;
-extern Color blue;
-extern Color yellow;
-extern Color green;
-extern Color gray;
-extern Color black;
-extern Color cyan;
-extern Color magenta;
-extern Color maroon;
-extern Color olive;
-extern Color purple;
-extern Color navy;
+extern const Color white;
+extern const Color red;
+extern const Color lime;
+extern const Color blue;
+extern const Color yellow;
+extern const Color green;
+extern const Color gray;
+extern const Color black;
+extern const Color cyan;
+extern const Color magenta;
+extern const Color maroon;
+extern const Color olive;
+extern const Color purple;
+extern const Color navy;
 
 #endif

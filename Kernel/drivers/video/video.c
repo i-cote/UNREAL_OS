@@ -58,6 +58,7 @@ struct vbe_mode_info_structure
 
 // Current positions
 uint16_t x = 0, y = 0;
+Color default_background = {0,0,0};
 
 typedef struct vbe_mode_info_structure VBEModeInfoBlock;
 static VBEModeInfoBlock *screen_data = (void *)0x5C00;
@@ -93,7 +94,7 @@ void setBackgroundColor()
 	{
 		for (int j = 0; j < SCREEN_HEIGHT; j++)
 		{
-			putPixel((uint16_t)i, (uint16_t)j, navy);
+			putPixel((uint16_t)i, (uint16_t)j, default_background);
 		}
 	}
 }
@@ -104,6 +105,19 @@ void printCharColor(char c, Color color)
 	{
 		printNewline();
 		return;
+	}
+	if(c ==0x7f)
+	{
+		x-=CHAR_WIDTH;
+		for(int h = 0;h<16;h++)
+		{
+			for(int w = 0;w<CHAR_WIDTH;w++)
+			{
+				putPixel(x+w,y+h,default_background);
+			}
+		}
+		return;
+	
 	}
 
 	if (c >= FIRST_CHAR && c <= LAST_CHAR)
