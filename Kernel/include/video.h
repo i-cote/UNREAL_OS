@@ -24,6 +24,7 @@ void printCharColor(char c, Color color);
 void printStringColor(char * str, Color color);
 void printDec(uint64_t num);
 void printHex(uint64_t num);
-void printBlock();
+void printBlock(int size, uint16_t x, uint16_t y);
+void printCharWithSize(char c, int size);
 
 #endif

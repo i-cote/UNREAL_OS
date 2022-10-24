@@ -1,5 +1,6 @@
 #include <keyboard_driver.h>
 #include <console_mapper.h>
+#include <video.h>
 #include <lib.h>
 #include <stdint.h>
 #define READ_BUFFER_SIZE_MAX 100
@@ -24,7 +25,6 @@ void newInputToConsole(const struct pressedKeys * keyboardState)
 		console_read_buffer_size+=utf8_size;
 	}
 }
-
 
 
 uint64_t read_from_console(void * dest,uint64_t count)

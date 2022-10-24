@@ -49,8 +49,8 @@ int main()
 {	
 	loadIdt();
 	setBackgroundColor();
-	
 	//Here we go to userland!
+	//printCharWithSize('I',2);
 	((EntryPoint)sampleCodeModuleAddress)();
 
 	return 0;

@@ -50,9 +50,13 @@ picSlaveMask:
     out 0A1h, al
     pop rbp
     retn
-
+	
 %macro pushState 0
 	push rax
+	pushStateSys
+%endmacro 	
+
+%macro pushStateSys 0
 	push rbx
 	push rcx
 	push rdx
@@ -69,7 +73,7 @@ picSlaveMask:
 	push r15
 %endmacro
 
-%macro popState 0
+%macro popStateSys 0
 	pop r15
 	pop r14
 	pop r13
@@ -84,6 +88,10 @@ picSlaveMask:
 	pop rdx
 	pop rcx
 	pop rbx
+%endmacro
+
+%macro popState 0
+	popStateSys
 	pop rax
 %endmacro
 
@@ -140,13 +148,13 @@ keyboardRoutine:
 	iretq
 
 systemCallsRoutine:
-	pushState
+	pushStateSys
 	mov rbp, rsp
 
 	call syscallHandler
 
 	mov rsp,rbp
-	popState
+	popStateSys
 	iretq
 
 _exception0Handler:

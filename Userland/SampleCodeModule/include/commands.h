@@ -3,6 +3,20 @@
 
 #include <stdint.h>
 
+#define COMMAND_NUMBER 2
+
+typedef struct commands_style
+{
+    char * name;
+    void (*function) (void);
+
+}commands_style;
+
+static commands_style commands[COMMAND_NUMBER];
+
+void inforeg();
+void help();
+
 uint64_t getRAX();
 uint64_t getRBX();
 uint64_t getRCX();

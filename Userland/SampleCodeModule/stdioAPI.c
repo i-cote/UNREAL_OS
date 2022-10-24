@@ -3,6 +3,7 @@
 #include <syscallsAPI.h>
 #include <string.h>
 #include <stdioAPI.h>
+#include <stdio.h>
 
 
 /*void putChar(char c) {
@@ -15,8 +16,11 @@ char getChar() {
     char c[2] = {0};
 	//We are going to read only one character
 	//Fd is one because we are reading from keyboard
-    sys_read_asm(1,c,1);
-    return c[0];
+    __uint64_t count = sys_read_asm(1,c,1);
+	if(count)
+    	return c[0];
+	else
+		return -1;
 }
 
 

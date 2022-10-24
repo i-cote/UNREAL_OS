@@ -1,24 +1,13 @@
-/*List of commands:
--help, muestra func disponibles
--info reg, imprime los valores actuales de los registros
--hora 
--memdir reciba como parámetro una dirección de memoria e imprima por pantalla los 32 bytes 
-de memoria posteriores a la misma.
--big y smalls, Comando que permita agrandar o reducir el tamaño del texto de la pantalla*/
 
-#include <stdioAPI.h>
+#include <commands.h>
 #include <shell.h>
-#include <getRegisters.h>
 
-void shell(){
-    printShellMenu();
+static commands_style commands[] = {
+    {"inforeg", inforeg},
+    {"help", help}
+};
 
-    inforeg(); //llamado para testear nomas
-}
-
-void printShellMenu(){
-    printf("Welcome to the shell!\n");
-    printf("Type 'help' to see the available commands\n");
+void help(){
     printf("Command List:\n");
     printf("inforeg - Prints the registers\n");
     printf("time - Prints the current time\n");
@@ -26,7 +15,6 @@ void printShellMenu(){
     printf("zoomin - Lets you zoom in\n");
     printf("zoomout - Lets you zoom out\n");
     printf("help - Prints this menu\n");
-    //Poner para recibir un comando
 }
 
 void inforeg(){
@@ -48,5 +36,4 @@ void inforeg(){
     printf("R13: 0x%x\n", getR13());
     printf("R14: 0x%x\n", getR14());
     printf("R15: 0x%x\n", getR15());
-
 }
