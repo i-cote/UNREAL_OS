@@ -1,5 +1,5 @@
-#ifndef GETREGISTERS_H
-#define GETREGISTERS_H
+#ifndef COMMANDS_H
+#define COMMANDS_H
 
 #include <stdint.h>
 

@@ -31,24 +31,7 @@ uint64_t sys_read(int fd, char * str, int length){
    switch (fd)
    {
         case STDIN:
-            printNewline();
-            printString("stdin: ");
-            /*//Now expecting for keyboardInterrupts
-            while((c=buffer_read[0]) != '\n' && i < length){
-                if(c == '\b'){
-                    i-=2;
-                    printChar(c);
-                }
-                else{
-                    str[i] = c;
-                    printChar(c);
-                    i++;
-                }
-            }                            //ver como pasar una tecla del driver para poder usarla
-            printNewline();
-            str[i] = 0;
-            return i;
-            */
+			return read_from_console(str,length);
         default:
             return -1;
     }
