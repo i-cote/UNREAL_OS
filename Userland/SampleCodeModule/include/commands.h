@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define COMMAND_NUMBER 2
+#define COMMAND_NUMBER 4
 
 typedef struct commands_style
 {
@@ -12,10 +12,21 @@ typedef struct commands_style
 
 }commands_style;
 
-static commands_style commands[COMMAND_NUMBER];
+
+
+//static commands_style commands[COMMAND_NUMBER];
 
 void inforeg();
 void help();
+void div_zero_exception_tester();
+void invalid_opcode_exception_tester();
+
+static commands_style commands[] = {
+    {"inforeg", inforeg},
+    {"help", help},
+    {"divzero", div_zero_exception_tester},
+    {"invopcode",invalid_opcode_exception_tester}
+};
 
 uint64_t getRAX();
 uint64_t getRBX();
@@ -33,6 +44,7 @@ uint64_t getR12();
 uint64_t getR13();
 uint64_t getR14();
 uint64_t getR15();
+void invalidOpcodeTester();
 
 // Get the registers from the CPU
 

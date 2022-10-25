@@ -17,6 +17,7 @@ GLOBAL getR12:
 GLOBAL getR13:
 GLOBAL getR14:
 GLOBAL getR15:
+GLOBAL  invalidOpcodeTester:
 
 SECTION .text:
 
@@ -68,4 +69,6 @@ getR14:
 getR15:
     mov rax, r15
     ret
-    
+invalidOpcodeTester:
+    mov cr6, rax
+    ret

@@ -116,6 +116,12 @@ picSlaveMask:
 	call exceptionDispatcher
 
 	popState
+	;pisa la direccion de retorno del iretq y se dirige al puentero de
+	;shell que fue previamente incializado 
+	push rax
+	mov rax, 0x00400000
+	mov [rsp + 8], rax
+	pop rax
 	iretq
 %endmacro
 

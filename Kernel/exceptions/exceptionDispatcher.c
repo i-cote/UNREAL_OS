@@ -21,14 +21,12 @@ void exceptionDispatcher(int exception) {
 	_sti();
 }
 
-static void zero_division() { //MDOIFICAR PARA MODO VIDEO 
-	printString("Zero division exception");
-	while (1)	{}  
-	//llama a shell
-	
+static void zero_division() {
+	printString("\n");
+	printString("Zero division exception\n");
 }
 
 static void invalid_opcode() {
-	printString("Invalid opcode exception");
-	while (1)	{} 
+	printString("\n");
+	printString("Invalid opcode exception\n");
 }
