@@ -16,7 +16,6 @@ de memoria posteriores a la misma.
 
 void shell(){
     printShellMenu();
-   // tron();
     waiting_command();
 }
 

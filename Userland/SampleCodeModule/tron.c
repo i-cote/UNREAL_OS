@@ -5,6 +5,15 @@
 void tron(){
     tronMenu();
     char c = 0;
+    int found = 0;
+    while (!found){
+        while ((c = getChar()) != ' '){
+            if (c == 'q'){
+                return;
+            }
+        }
+        found = 1;
+    }
     tronGame();
     
 }
@@ -12,9 +21,8 @@ void tron(){
 void tronMenu(){
     clearScreen();
     printf("Welcome to Tron!\n");
-    printf("Press any key to start the game\n");
-    printf("Press q to go back to the main menu\n");
-    printf("Press backspace to exit the game\n\n");
+    printf("Press spacebar start the game\n");
+    printf("Press q to exit the game\n\n");
     printf("Player 1: W A S D\n");
     printf("Player 2: I J K L\n");
 
