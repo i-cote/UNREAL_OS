@@ -5,8 +5,8 @@
 void tron(){
     tronMenu();
     char c = 0;
-
-    int winner = tronGame();
+    tronGame();
+    
 }
 
 void tronMenu(){
@@ -20,7 +20,7 @@ void tronMenu(){
 
 }
 
-int tronGame(){
+void tronGame(){
     sys_print_asm(CLEAR_SCREEN,"",0,0);
     player_position player1 = {500,300,BLOCK_SIZE,0};
     player_position player2 = {300,500,-BLOCK_SIZE,0};
@@ -35,11 +35,16 @@ int tronGame(){
     int player1_status = 0;
     int player2_status = 0;
 
+    int time_length = 9;
+    int time = sys_ticker_asm(GET_TIME, time_length);
+    
+
     while ((c = getChar()) != '\b' && !player1_status && !player2_status)
     {
+
         if (c == 'q')
         {
-            return 0;
+            break;
         }
         if (c == 'w' && player1_direction != 's')
         {
@@ -90,24 +95,29 @@ int tronGame(){
             player2.y_dir = 0;
         }
 
-        player1.x += player1.x_dir;
-        player1.y += player1.y_dir;
-        player2.x += player2.x_dir;
-        player2.y += player2.y_dir;
 
-        player1_status = sys_print_asm(PLAYER_ONE, "", player1.x, player1.y);
-        player2_status = sys_print_asm(PLAYER_TWO, "", player2.x, player2.y);
-        
+        if (sys_ticker_asm(GET_TIME,time_length) != time)
+        {
+            time = sys_ticker_asm(GET_TIME,time_length);
+            player1.x += player1.x_dir;
+            player1.y += player1.y_dir;
+            player2.x += player2.x_dir;
+            player2.y += player2.y_dir;
+
+            player1_status = sys_print_asm(PLAYER_ONE, "", player1.x, player1.y);
+            player2_status = sys_print_asm(PLAYER_TWO, "", player2.x, player2.y);
+        }
+    
     }
     sys_print_asm(CLEAR_SCREEN,"",0,0);
     if (player1_status == 1)
     {
-        printf("Player 1 wins!\n");
+        printf("Player BLUE wins!\n");
         return 1;
     }
     if (player2_status == 1)
     {
-        printf("Player 2 wins!\n");
+        printf("Player RED wins!\n");
         return 2;
     }
 

@@ -1,6 +1,7 @@
 GLOBAL sys_read_asm:
 GLOBAL sys_write_asm:
 GLOBAL sys_print_asm:
+GLOBAL sys_ticker_asm:
 
 SECTION .text
 
@@ -49,3 +50,15 @@ sys_print_asm:
     pop rbp
     ret
 
+sys_ticker_asm:
+    push rbp
+    mov rbp, rsp
+
+    mov rdx,rsi
+    mov rsi, rdi
+    mov rdi, 5
+    int 80h
+
+    mov rsp,rbp
+    pop rbp
+    ret

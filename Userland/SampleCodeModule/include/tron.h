@@ -15,6 +15,6 @@ typedef struct {
 
 void tron();
 void tronMenu();
-int tronGame();
+void tronGame();
 
 #endif

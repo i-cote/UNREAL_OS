@@ -4,5 +4,6 @@
 void timer_handler(void);
 int ticks_elapsed();
 int seconds_elapsed();
+int time_elapsed(int divisor);
 
 #endif
