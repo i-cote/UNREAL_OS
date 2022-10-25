@@ -6,7 +6,6 @@ void tron(){
     tronMenu();
     char c = 0;
 
-    for (int i = 0; i < 100000; i++);
     int winner = tronGame();
 }
 
@@ -15,7 +14,10 @@ void tronMenu(){
     printf("Welcome to Tron!\n");
     printf("Press any key to start the game\n");
     printf("Press q to go back to the main menu\n");
-    printf("Press backspace to exit the game\n");
+    printf("Press backspace to exit the game\n\n");
+    printf("Player 1: W A S D\n");
+    printf("Player 2: I J K L\n");
+
 }
 
 int tronGame(){
@@ -30,10 +32,10 @@ int tronGame(){
     char player1_direction = 'd';
     char player2_direction = 'a';
 
-    int player1_status = 1;
-    int player2_status = 1;
+    int player1_status = 0;
+    int player2_status = 0;
 
-    while ((c = getChar()) != '\b' && player1_status && player2_status)
+    while ((c = getChar()) != '\b' && !player1_status && !player2_status)
     {
         if (c == 'q')
         {
@@ -95,8 +97,18 @@ int tronGame(){
 
         player1_status = sys_print_asm(PLAYER_ONE, "", player1.x, player1.y);
         player2_status = sys_print_asm(PLAYER_TWO, "", player2.x, player2.y);
-
-        for (int i = 0; i < 100000; i++);
+        
+    }
+    sys_print_asm(CLEAR_SCREEN,"",0,0);
+    if (player1_status == 1)
+    {
+        printf("Player 1 wins!\n");
+        return 1;
+    }
+    if (player2_status == 1)
+    {
+        printf("Player 2 wins!\n");
+        return 2;
     }
 
 }

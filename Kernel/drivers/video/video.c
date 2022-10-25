@@ -335,5 +335,6 @@ int printBlockAt(uint16_t x_coor, uint16_t y_coor, Color color) {
 			putPixel(x_coor+j, y_coor+i, color);
 		}
 	}
+	return 0;
 }
 
