@@ -3,6 +3,8 @@
 
 #define PLAYER_ONE 1
 #define PLAYER_TWO 2
+#define MAX_SPEED 3
+#define SPEED_CYCLES 7
 #define CLEAR_SCREEN 3
 #define BLOCK_SIZE 10
 
