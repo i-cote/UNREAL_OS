@@ -194,3 +194,7 @@ char* itoa(int num, char* str, int base)
   
     return str;
 }
+
+void clearScreen() {
+	sys_print_asm(3,"",0,0);
+}

@@ -11,6 +11,8 @@
 #define CHAR_WIDTH 9
 /* The height of a character in pixels. */
 #define CHAR_HEIGHT 16
+/* The size of a block in Tron */
+#define BLOCK_SIZE 10
 
 
 void * getPosToPrint(uint16_t x, uint16_t y);
@@ -26,5 +28,6 @@ void printDec(uint64_t num);
 void printHex(uint64_t num);
 void printBlock(int size, uint16_t x, uint16_t y);
 void printCharWithSize(char c, int size);
+int printBlockAt(uint16_t x_coor, uint16_t y_coor, Color color);
 
 #endif

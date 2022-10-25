@@ -97,6 +97,8 @@ void setBackgroundColor()
 			putPixel((uint16_t)i, (uint16_t)j, default_background);
 		}
 	}
+	x = 0;
+	y = 0;
 }
 
 void printCharColor(char c, Color color)
@@ -308,16 +310,30 @@ void printHex(uint64_t n)
 	printString(str);
 }
 
-void printBlock(int size, uint16_t x, uint16_t y)
-{
-	for (int i = 0; i < size; i++)
-	{
-		for (int j = 0; j < size; j++)
-		{
-			putPixel(x + j, y + i, white);
+void printBlockColor(Color color) {
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 16; j++) {
+			putPixel(x+j, y+i, color);
 		}
 	}
-	x += size;
-	if (x > screen_data->width - size)
+	x += CHAR_HEIGHT;
+	if (x > screen_data->width - CHAR_HEIGHT)
 		printNewline();
 }
+
+int printBlockAt(uint16_t x_coor, uint16_t y_coor, Color color) {
+
+	if (x_coor > screen_data->width - BLOCK_SIZE || y_coor > screen_data->height - BLOCK_SIZE || x_coor < 0 || y_coor < 0) {
+		return 1;
+	}
+	for (int i = 0; i < BLOCK_SIZE; i++) {
+		for (int j = 0; j < BLOCK_SIZE; j++) {
+			Color * check_pos = (Color *)getPosToPrint(x_coor+j, y_coor+i);
+			if (check_pos->r != black.r || check_pos->g != black.g || check_pos->b != black.b) {
+				return 1;
+			}
+			putPixel(x_coor+j, y_coor+i, color);
+		}
+	}
+}
+

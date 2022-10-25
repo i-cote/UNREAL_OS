@@ -10,9 +10,14 @@ de memoria posteriores a la misma.
 #include <shell.h>
 #include <commands.h>
 #include <string.h>
+#include <syscallsAPI.h>
+#include <tron.h>
+
+
 
 void shell(){
     printShellMenu();
+    tron();
     waiting_command();
 }
 

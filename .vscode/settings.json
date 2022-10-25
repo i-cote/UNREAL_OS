@@ -3,6 +3,11 @@
         "color.h": "c",
         "stdioapi.h": "c",
         "stdarg.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "string.h": "c",
+        "syscallsapi.h": "c",
+        "tron.h": "c",
+        "commands.h": "c",
+        "shell.h": "c"
     }
 }
