@@ -2,9 +2,10 @@
 #include <commands.h>
 #include <shell.h>
 #include <stdioAPI.h>
+#include <tron.h>
 
 
-void help(){
+void help(args argsVec){
     printf("\n");
     printf("Command List:\n");
     printf("inforeg - Prints the registers\n");
@@ -14,10 +15,11 @@ void help(){
     printf("tron - Lets you play tron\n");
     printf("biggie - Lets you zoom in\n");
     printf("smalls - Lets you zoom out\n");
+    printf("getContent - Print the next 32 bytes to the memory address you pass as an argument \n");
     printf("help - Prints this menu\n");
 }
 
-void inforeg(){
+void inforeg(args argsVec){
     //Poner para imprimir los registros
     printf("\n");
     printf("Registers:\n");
@@ -39,21 +41,24 @@ void inforeg(){
     printf("R15: 0x%x\n", getR15());
 }
 
-void div_zero_exception_tester(){
+void div_zero_exception_tester(args argsVec){
     int j=1,i=0;
     j=j/i;
 }
 
-void invalid_opcode_exception_tester(){
+void invalid_opcode_exception_tester(args argsVec){
     invalidOpcodeTester();
 }
 
-void tron_command(){
+void tron_command(args argsVec){
     tron();
 }
 
+void getContent(args argsVec){
+    return;
+}
 
-void time(){
+void time(args argsVec){
     printf("\n");
     while(1){
         if(getStatusRegA()!=0x80){
