@@ -29,13 +29,19 @@ void waiting_command(){
         char current;
         while ((current = getChar()) != ENTER)
         {
-            if(current != -1){
+            if (current == BACKSPACE || current == DELETE){
+                if (count > 0){
+                    command_reader[count] = '\0';
+                    count--;
+                    printf("%c", current);
+                }
+            }
+            else if(current != -1){
                 command_reader[count] = current;
                 count++;
-                printf("%c",current);
+                printf("%c", current);
             }
         }
-        
         //Preparing the command for read
         //First i get the line 
         char line[count+1];
@@ -47,7 +53,6 @@ void waiting_command(){
         line[count]='\0';
         //Now i use strtok for delete the spaces
         char * toRead = my_strtok(line, SPACE);
-        
         
         reading_command(toRead);
     }
