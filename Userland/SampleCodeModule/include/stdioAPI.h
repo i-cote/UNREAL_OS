@@ -2,6 +2,7 @@
 #define STDIOAPI_H
 
 #include <stdarg.h>
+#include <stdint.h>
 
 void putChar(const char c);
 char getChar();
@@ -11,5 +12,6 @@ char* itoa(int num, char* str, int base);
 void swap(char *x, char *y);
 void reverse(char * str, int length);
 void clearScreen();
+uint32_t hex2int(char *hex);
 
 #endif

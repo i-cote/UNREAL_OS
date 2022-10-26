@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define COMMAND_NUMBER 7
+#define COMMAND_NUMBER 8
 #define MAX_PARAMS 4
 #define MAX_LENGHT_PARAMS 20
 
@@ -26,6 +26,7 @@ void invalid_opcode_exception_tester(args argsVec);
 void tron_command(args argsVec);
 void time(args argsVec);
 void getContent(args argsVec);
+void clear(args argsVec);
 
 static commands_style commands[] = {
     {"inforeg", inforeg, 0},
@@ -33,6 +34,7 @@ static commands_style commands[] = {
     {"divzero", div_zero_exception_tester, 0},
     {"invopcode",invalid_opcode_exception_tester, 0},
     {"time",time, 0},
+    {"clear", clear, 0},
     {"tron",tron_command, 0},
     {"getContent", getContent, 1}
 };

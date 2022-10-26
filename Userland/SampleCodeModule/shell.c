@@ -16,13 +16,14 @@ de memoria posteriores a la misma.
 #define NULL ((void*)0)
 
 void shell(){
+    printf("Welcome to the shell!");
     waiting_command();
 }
 
 void waiting_command(){
     while (1)
     {
-        printShellMenu();
+        printf("\nType 'help' to see the available commands\n");
         char command_reader[MAX_READ];
         printf("\n%s", "$ ");
         int count = 0;
@@ -96,18 +97,13 @@ void reading_command(char command[MAX_LENGHT_PARAMS], args argsVec, int argsNum)
     }
     else if (found && !args_check)
     {
-        printf("\n Invalid params");
+        printf("\n Invalid params\n");
     }
     
     else{
-        printf("\n Command Not found");
+        printf("\n Command Not found\n");
     }
     
     
     return;
-}
-
-void printShellMenu(){
-    printf("Welcome to the shell!\n");
-    printf("Type 'help' to see the available commands\n");
 }

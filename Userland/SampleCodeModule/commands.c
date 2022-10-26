@@ -12,6 +12,7 @@ void help(args argsVec){
     printf("divzero - Tests div zero exception\n");
     printf("invopcode - TEsts invalid opcode exception\n");
     printf("time - Prints the current time\n");
+    printf("clear - Clears the screen\n");
     printf("tron - Lets you play tron\n");
     printf("biggie - Lets you zoom in\n");
     printf("smalls - Lets you zoom out\n");
@@ -54,8 +55,18 @@ void tron_command(args argsVec){
     tron();
 }
 
+void clear(args argsVec){
+    clearScreen();
+}
+
 void getContent(args argsVec){
-    return;
+    char * address = (char *) argsVec[0];
+    unsigned char  * realAddress = (unsigned char *)hex2int(address);
+    printf("\n");
+    for(int i = 0; i < 32; i++){
+        printf("The contents of the memory address %x is %x \n", realAddress +i, realAddress[i]);
+    }
+    
 }
 
 void time(args argsVec){
