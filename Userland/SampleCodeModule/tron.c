@@ -30,12 +30,12 @@ void tronMenu(){
 }
 
 void tronGame(){
-    sys_print_asm(CLEAR_SCREEN,"",0,0);
+    sys_print_asm(CLEAR_SCREEN,0,0);
     player_position player1 = {300,500,BLOCK_SIZE,0};
     player_position player2 = {500,300,-BLOCK_SIZE,0};
 
-    sys_print_asm(PLAYER_ONE, "", player1.x, player1.y);
-    sys_print_asm(PLAYER_TWO, "", player2.x, player2.y);
+    sys_print_asm(PLAYER_ONE, player1.x, player1.y);
+    sys_print_asm(PLAYER_TWO, player2.x, player2.y);
     int c = 0;
 
     char player1_direction = 'd';
@@ -44,7 +44,7 @@ void tronGame(){
     int player1_status = 0;
     int player2_status = 0;
 
-    int time_length = 5;
+    int time_length = BASE_SPEED;
     int speed_cycles = 0;
     int time = sys_ticker_asm(GET_TIME, time_length);
     
@@ -116,26 +116,24 @@ void tronGame(){
             player2.x += player2.x_dir;
             player2.y += player2.y_dir;
 
-            player1_status = sys_print_asm(PLAYER_ONE, "", player1.x, player1.y);
-            player2_status = sys_print_asm(PLAYER_TWO, "", player2.x, player2.y);
+            player1_status = sys_print_asm(PLAYER_ONE, player1.x, player1.y);
+            player2_status = sys_print_asm(PLAYER_TWO, player2.x, player2.y);
             
             if (speed_cycles == SPEED_CYCLES){
-                time_length < MAX_SPEED ? time_length : time_length--;
+                time_length <= MAX_SPEED ? time_length : time_length--;
                 speed_cycles = 0;
             }
         }
     
     }
-    sys_print_asm(CLEAR_SCREEN,"",0,0);
+    sys_print_asm(CLEAR_SCREEN,0,0);
     if (player1_status == 1){
         printf("Player BLUE wins!\n");
         beep();
-        return 1;
     }
     if (player2_status == 1){
         printf("Player RED wins!\n");
         beep();
-        return 2;
     }
 
 }

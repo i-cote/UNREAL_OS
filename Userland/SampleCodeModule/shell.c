@@ -16,14 +16,13 @@ de memoria posteriores a la misma.
 #define NULL ((void*)0)
 
 void shell(){
-    printShellMenu();
     waiting_command();
 }
 
 void waiting_command(){
-
     while (1)
     {
+        printShellMenu();
         char command_reader[MAX_READ];
         printf("\n%s", "$ ");
         int count = 0;

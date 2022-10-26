@@ -54,7 +54,7 @@ uint64_t sys_write(int fd, char * str, int length){
     }
 }
 
-uint64_t sys_print(int fd, char * str, int length, int coor){
+uint64_t sys_print(int fd, int length, int coor){
     switch (fd){
         case PLAYER_ONE:
             return printBlockAt(length,coor,red);
