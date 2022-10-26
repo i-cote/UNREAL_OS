@@ -1,6 +1,7 @@
 #include <tron.h>
 #include <syscallsAPI.h>
 #include <stdioAPI.h>
+#include <beeper.h>
 
 void tron(){
     tronMenu();
@@ -43,7 +44,7 @@ void tronGame(){
     int player1_status = 0;
     int player2_status = 0;
 
-    int time_length = 9;
+    int time_length = 5;
     int speed_cycles = 0;
     int time = sys_ticker_asm(GET_TIME, time_length);
     
@@ -126,14 +127,14 @@ void tronGame(){
     
     }
     sys_print_asm(CLEAR_SCREEN,"",0,0);
-    if (player1_status == 1)
-    {
+    if (player1_status == 1){
         printf("Player BLUE wins!\n");
+        beep();
         return 1;
     }
-    if (player2_status == 1)
-    {
+    if (player2_status == 1){
         printf("Player RED wins!\n");
+        beep();
         return 2;
     }
 
