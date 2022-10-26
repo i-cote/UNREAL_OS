@@ -13,6 +13,7 @@ de memoria posteriores a la misma.
 #include <syscallsAPI.h>
 #include <tron.h>
 
+#define NULL ((void*)0)
 
 void shell(){
     printShellMenu();
@@ -53,29 +54,56 @@ void waiting_command(){
         line[count]='\0';
         //Now i use strtok for delete the spaces
         char * toRead = my_strtok(line, SPACE);
+
+        char command[MAX_LENGHT_PARAMS] = {0};
+        //Consume the command
+        strcpy(command, toRead);
+        toRead = my_strtok (NULL, SPACE);
+
+        args tokens = {0};
         
-        reading_command(toRead);
+        //Now i consume the args
+        int index = 0;
+        while (toRead != NULL)
+        {   
+            strcpy(tokens[index++], toRead);
+            toRead = my_strtok (NULL, SPACE);
+        }
+
+        reading_command(command, tokens, index);
     }
+    
 }
 
-void reading_command(char * str){
+void reading_command(char command[MAX_LENGHT_PARAMS], args argsVec, int argsNum){
 
     int found = 0;
+    int args_check = 0;
     int to_execute;
     for (int i = 0; i < COMMAND_NUMBER && !found; i++){
-        if (!(strcmp(commands[i].name, str))){
+        if (!(strcmp(commands[i].name, command))){
             found = 1;
-            to_execute = i;
+            //Checking if the amount of args is correct
+           if(commands[i].args == argsNum){
+                args_check = 1;
+                to_execute = i;
+            }
         }
         
     }
 
-    if(found){
-        commands[to_execute].function();
+    if(found && args_check){
+        commands[to_execute].function(argsVec);
     }
+    else if (found && !args_check)
+    {
+        printf("\n Invalid params");
+    }
+    
     else{
         printf("\n Command Not found");
     }
+    
     
     return;
 }

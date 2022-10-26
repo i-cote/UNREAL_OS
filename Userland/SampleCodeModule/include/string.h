@@ -2,6 +2,7 @@
 #define STRING_H
 
 #include <stdint.h>
+#include <string.h>
 
 char *strcpy(char *dest, const char *src);
 char *strncopy(char *dest, const char *src, uint32_t n);
