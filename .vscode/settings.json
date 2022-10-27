@@ -8,6 +8,7 @@
         "syscallsapi.h": "c",
         "tron.h": "c",
         "commands.h": "c",
-        "shell.h": "c"
+        "shell.h": "c",
+        "beeper.h": "c"
     }
 }

@@ -6,7 +6,7 @@
 #include <syscallsAPI.h>
 
 
-void help(args argsVec){
+void help(args argsVec, int argsNum){
     printf("\n");
     printf("Command List:\n");
     printf("inforeg - Prints the registersof screenshot taken previously\n");
@@ -21,7 +21,7 @@ void help(args argsVec){
     printf("help - Prints this menu\n");
 }
 
-void inforeg(args argsVec){
+void inforeg(args argsVec, int argsNum){
     uint32_t registerVector[REGISTERS] = {0};
     sys_memcpy_asm(registerVector,REGISTERS);
 
@@ -47,25 +47,25 @@ void inforeg(args argsVec){
     
 }
 
-void div_zero_exception_tester(args argsVec){
+void div_zero_exception_tester(args argsVec, int argsNum){
     int j=1,i=0;
     j=j/i;
 }
 
-void invalid_opcode_exception_tester(args argsVec){
+void invalid_opcode_exception_tester(args argsVec, int argsNum){
     invalidOpcodeTester();
 }
 
-void tron_command(args argsVec){
+void tron_command(args argsVec, int argsNum){
     tron();
 }
 
-void clear(args argsVec){
+void clear(args argsVec, int argsNum){
     clearScreen();
 }
 
-void getContent(args argsVec){
-    char * address = (char *) argsVec[0];
+void getContent(args argsVec, int argsNum){
+    char * address = (char *) argsVec[argsNum];
     uintptr_t realAddress = (uintptr_t)hex2int(address);
     if (realAddress % ALIGNMENT != 0){
         realAddress -= (realAddress % ALIGNMENT);
@@ -83,7 +83,7 @@ void getContent(args argsVec){
     
 }
 
-void time(args argsVec){
+void time(args argsVec, int argsNum){
     printf("\n");
     while(1){
         if(getStatusRegA()!=0x80){

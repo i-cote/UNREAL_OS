@@ -11,8 +11,8 @@ if [[ !  $? -eq 0 ]]
 fi
 if [[ "$1" = "gdb" ]]
 	then
-	qemu-system-x86_64 -s -S -hda ./Image/x64BareBonesImage.qcow2 -m 512 -d int 1>/dev/null 2>&1 &
+	qemu-system-x86_64 -s -S -hda ./Image/x64BareBonesImage.qcow2 -m 512 -soundhw pcspk -d int 1>/dev/null 2>&1 &
 else
-	qemu-system-x86_64 -hda ./Image/x64BareBonesImage.qcow2 -m 512 1>/dev/null 2>&1 &
+	qemu-system-x86_64 -hda ./Image/x64BareBonesImage.qcow2 -m 512 -soundhw pcspk 1>/dev/null 2>&1 &
 fi
 vncviewer 1>/dev/null 2>&1 &

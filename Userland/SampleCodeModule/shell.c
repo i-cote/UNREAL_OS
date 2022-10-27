@@ -55,12 +55,12 @@ void waiting_command(){
         //Now i use strtok for delete the spaces
         char * toRead = my_strtok(line, SPACE);
 
-        char command[MAX_LENGHT_PARAMS] = {0};
+        char command[MAX_LENGHT] = {0};
         //Consume the command
         strcpy(command, toRead);
         toRead = my_strtok (NULL, SPACE);
 
-        args tokens = {0};
+        args tokens;
         
         //Now i consume the args
         int index = 0;
@@ -75,10 +75,11 @@ void waiting_command(){
     
 }
 
-void reading_command(char command[MAX_LENGHT_PARAMS], args argsVec, int argsNum){
+void reading_command(char command[MAX_LENGHT], args argsVec, int argsNum){
 
     int found = 0;
     int args_check = 0;
+    int args = 0;
     int to_execute;
     for (int i = 0; i < COMMAND_NUMBER && !found; i++){
         if (!(strcmp(commands[i].name, command))){
@@ -86,6 +87,7 @@ void reading_command(char command[MAX_LENGHT_PARAMS], args argsVec, int argsNum)
             //Checking if the amount of args is correct
            if(commands[i].args == argsNum){
                 args_check = 1;
+                args = commands[i].args;
                 to_execute = i;
             }
         }
@@ -93,7 +95,7 @@ void reading_command(char command[MAX_LENGHT_PARAMS], args argsVec, int argsNum)
     }
 
     if(found && args_check){
-        commands[to_execute].function(argsVec);
+        commands[to_execute].function(argsVec, args);
     }
     else if (found && !args_check)
     {

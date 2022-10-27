@@ -11,7 +11,7 @@
 
 
 void shell();
-void reading_command(char commands[MAX_LENGHT_PARAMS],args argsVec, int argsNum);
+void reading_command(char commands[MAX_LENGHT],args argsVec, int argsNum);
 void waiting_command();
 void printShellMenu();
 
