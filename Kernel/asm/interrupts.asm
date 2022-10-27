@@ -12,6 +12,7 @@ GLOBAL timerRoutine
 Global keyboardRoutine
 Global systemCallsRoutine
 GLOBAL getRegisters
+GLOBAL registerBuffer
 
 EXTERN irqDispatcher
 EXTERN timer_handler
@@ -170,22 +171,23 @@ _exception6Handler:
 	exceptionHandler 6
 
 getRegisters:
-	mov [registerBuffer], rax
-	mov [registerBuffer + 8], rbx
-	mov [registerBuffer + 16], rcx
-	mov [registerBuffer + 24], rdx
-	mov [registerBuffer + 32], rbp
-	mov [registerBuffer + 40], rsi
-	mov [registerBuffer + 48], rdi
-	mov [registerBuffer + 56], r8
-	mov [registerBuffer + 64], r9
-	mov [registerBuffer + 72], r10
-	mov [registerBuffer + 80], r11
-	mov [registerBuffer + 88], r12
-	mov [registerBuffer + 96], r13
-	mov [registerBuffer + 104], r14
-	mov [registerBuffer + 112], r15
-	mov [registerBuffer + 120], rsp
+	mov QWORD[registerBuffer], rax
+	mov QWORD[registerBuffer + 8], rbx
+	mov QWORD[registerBuffer + 16], rcx
+	mov QWORD[registerBuffer + 24], rdx
+	mov QWORD[registerBuffer + 32], rbp
+	mov QWORD[registerBuffer + 40], rsp
+	mov QWORD[registerBuffer + 48], rsi
+	mov QWORD[registerBuffer + 56], rdi
+	mov QWORD[registerBuffer + 64], r8
+	mov QWORD[registerBuffer + 72], r9
+	mov QWORD[registerBuffer + 80], r10
+	mov QWORD[registerBuffer + 88], r11
+	mov QWORD[registerBuffer + 96], r12
+	mov QWORD[registerBuffer + 104], r13
+	mov QWORD[registerBuffer + 112], r14
+	mov QWORD[registerBuffer + 120], r15
+	
 	mov rax, registerBuffer
 	ret
 

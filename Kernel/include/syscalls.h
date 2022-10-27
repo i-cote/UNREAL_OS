@@ -23,6 +23,6 @@ uint64_t sys_read(int fd, char * str, int length);
 uint64_t sys_write(int fd, char * str, int length);
 uint64_t sys_print(int fd, int length, int coor);
 uint64_t sys_ticker(int fd, int length);
-uint64_t sys_memcpy(uint32_t * dest, int length);
+uint64_t sys_memcpy(uint64_t * dest, int length);
 
 #endif

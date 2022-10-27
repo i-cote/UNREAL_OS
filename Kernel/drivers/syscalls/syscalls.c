@@ -6,6 +6,8 @@
 #include <time.h>
 #include <lib.h>
 
+extern uint64_t registerBuffer;
+
 
 static uint64_t (*syscalls[256]) (int,char *, int,int,uint32_t *);
 
@@ -80,7 +82,7 @@ uint64_t sys_ticker(int fd, int length){
     }
 }
 
-uint64_t sys_memcpy(uint32_t * dest, int length){
-    //void * ans = memcpy(dest,VECTOR DE LOS REGISTROS, length);
+uint64_t sys_memcpy(uint64_t * dest, int length){
+    memcpy(dest,&registerBuffer, length * sizeof(uint64_t));
     return 0;
 }
