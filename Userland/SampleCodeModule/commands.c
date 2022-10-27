@@ -3,6 +3,7 @@
 #include <shell.h>
 #include <stdioAPI.h>
 #include <tron.h>
+#include <syscallsAPI.h>
 
 
 void help(args argsVec){
@@ -21,27 +22,29 @@ void help(args argsVec){
 }
 
 void inforeg(args argsVec){
-    int registerVector[16] = {0};
+    uint32_t registerVector[REGISTERS] = {0};
+    sys_memcpy_asm(registerVector,REGISTERS);
 
     //Poner para imprimir los registros
-    /*printf("\n");
+    printf("\n");
     printf("Registers:\n");
-    printf("RAX: 0x%x\n", getRAX());
-    printf("RBX: 0x%x\n", getRBX());
-    printf("RCX: 0x%x\n", getRCX());
-    printf("RDX: 0x%x\n", getRDX());
-    printf("RBP: 0x%x\n", getRBP());
-    printf("RSP: 0x%x\n", getRSP());
-    printf("RDI: 0x%x\n", getRDI());
-    printf("RSI: 0x%x\n", getRSI());
-    printf("R8: 0x%x\n", getR8());
-    printf("R9: 0x%x\n", getR9());
-    printf("R10: 0x%x\n", getR10());
-    printf("R11: 0x%x\n", getR11());
-    printf("R12: 0x%x\n", getR12());
-    printf("R13: 0x%x\n", getR13());
-    printf("R14: 0x%x\n", getR14());
-    printf("R15: 0x%x\n", getR15());*/
+    printf("RAX: 0x%x\n", registerVector[0]);
+    printf("RBX: 0x%x\n", registerVector[1]);
+    printf("RCX: 0x%x\n", registerVector[2]);
+    printf("RDX: 0x%x\n", registerVector[3]);
+    printf("RBP: 0x%x\n", registerVector[4]);
+    printf("RSP: 0x%x\n", registerVector[5]);
+    printf("RDI: 0x%x\n", registerVector[6]);
+    printf("RSI: 0x%x\n", registerVector[7]);
+    printf("R8: 0x%x\n", registerVector[8]);
+    printf("R9: 0x%x\n", registerVector[9]);
+    printf("R10: 0x%x\n", registerVector[10]);
+    printf("R11: 0x%x\n", registerVector[11]);
+    printf("R12: 0x%x\n", registerVector[12]);
+    printf("R13: 0x%x\n", registerVector[13]);
+    printf("R14: 0x%x\n", registerVector[14]);
+    printf("R15: 0x%x\n", registerVector[15]);
+    
 }
 
 void div_zero_exception_tester(args argsVec){

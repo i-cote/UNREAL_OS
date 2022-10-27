@@ -1,4 +1,3 @@
-
 GLOBAL _cli
 GLOBAL _sti
 GLOBAL _hlt
@@ -12,6 +11,7 @@ GLOBAL _exception6Handler
 GLOBAL timerRoutine
 Global keyboardRoutine
 Global systemCallsRoutine
+GLOBAL getRegisters
 
 EXTERN irqDispatcher
 EXTERN timer_handler
@@ -169,5 +169,27 @@ _exception0Handler:
 _exception6Handler:
 	exceptionHandler 6
 
+getRegisters:
+	mov [registerBuffer], rax
+	mov [registerBuffer + 8], rbx
+	mov [registerBuffer + 16], rcx
+	mov [registerBuffer + 24], rdx
+	mov [registerBuffer + 32], rbp
+	mov [registerBuffer + 40], rsi
+	mov [registerBuffer + 48], rdi
+	mov [registerBuffer + 56], r8
+	mov [registerBuffer + 64], r9
+	mov [registerBuffer + 72], r10
+	mov [registerBuffer + 80], r11
+	mov [registerBuffer + 88], r12
+	mov [registerBuffer + 96], r13
+	mov [registerBuffer + 104], r14
+	mov [registerBuffer + 112], r15
+	mov [registerBuffer + 120], rsp
+	mov rax, registerBuffer
+	ret
+
+
 SECTION .bss
 	aux resq 1
+	registerBuffer resb 128

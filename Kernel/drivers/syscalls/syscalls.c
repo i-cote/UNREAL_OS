@@ -4,9 +4,10 @@
 #include <syscalls.h>
 #include <console_driver.h>
 #include <time.h>
+#include <lib.h>
 
 
-static uint64_t (*syscalls[256]) (int,char *, int,int);
+static uint64_t (*syscalls[256]) (int,char *, int,int,uint32_t *);
 
 //Function pointers to the handlers
 
@@ -16,21 +17,20 @@ void initializeSyscallsArray() {
 	syscalls[WRITE_PORT] = sys_write;
     syscalls[PRINT_PORT] = sys_print;
     syscalls[TICKER_PORT] = sys_ticker;
+    syscalls[MEMCPY_PORT] = sys_memcpy;
 }
 
 
 //arg is the number of syscall
-void syscallHandler(int arg, int fd, char * str, int length, int coor){
+void syscallHandler(int arg, int fd, char * str, int length, int coor, uint32_t * dest){
 	//The args are the following: rdi, rsi, rdx
-	(*syscalls[arg])(fd, str, length,coor);
+	(*syscalls[arg])(fd, str, length,coor,dest);
 }
 
 //Here all the syscall handler functions
 
 //In this case, *str is the buffer and lenght his dim
 uint64_t sys_read(int fd, char * str, int length){
-   int i=0;
-   char c;
    switch (fd)
    {
         case STDIN:
@@ -78,4 +78,9 @@ uint64_t sys_ticker(int fd, int length){
         default:
             return -1;
     }
+}
+
+uint64_t sys_memcpy(uint32_t * dest, int length){
+    //void * ans = memcpy(dest,VECTOR DE LOS REGISTROS, length);
+    return 0;
 }

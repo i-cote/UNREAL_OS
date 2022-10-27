@@ -17,10 +17,12 @@
 #define WRITE_PORT 0x01
 #define PRINT_PORT 0x04
 #define TICKER_PORT 0x05
+#define MEMCPY_PORT 0x06
 
 uint64_t sys_read(int fd, char * str, int length);
 uint64_t sys_write(int fd, char * str, int length);
 uint64_t sys_print(int fd, int length, int coor);
 uint64_t sys_ticker(int fd, int length);
+uint64_t sys_memcpy(uint32_t * dest, int length);
 
 #endif
