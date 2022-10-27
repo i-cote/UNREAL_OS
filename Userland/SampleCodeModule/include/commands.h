@@ -6,6 +6,8 @@
 #define COMMAND_NUMBER 8
 #define MAX_PARAMS 4
 #define MAX_LENGHT_PARAMS 20
+#define ALIGNMENT 16
+#define BYTE_GROUP 4
 
 typedef struct commands_style
 {

@@ -1,4 +1,4 @@
-
+#include <stdint.h>
 #include <commands.h>
 #include <shell.h>
 #include <stdioAPI.h>
@@ -8,7 +8,7 @@
 void help(args argsVec){
     printf("\n");
     printf("Command List:\n");
-    printf("inforeg - Prints the registers\n");
+    printf("inforeg - Prints the registersof screenshot taken previously\n");
     printf("divzero - Tests div zero exception\n");
     printf("invopcode - TEsts invalid opcode exception\n");
     printf("time - Prints the current time\n");
@@ -21,8 +21,10 @@ void help(args argsVec){
 }
 
 void inforeg(args argsVec){
+    int registerVector[16] = {0};
+
     //Poner para imprimir los registros
-    printf("\n");
+    /*printf("\n");
     printf("Registers:\n");
     printf("RAX: 0x%x\n", getRAX());
     printf("RBX: 0x%x\n", getRBX());
@@ -39,7 +41,7 @@ void inforeg(args argsVec){
     printf("R12: 0x%x\n", getR12());
     printf("R13: 0x%x\n", getR13());
     printf("R14: 0x%x\n", getR14());
-    printf("R15: 0x%x\n", getR15());
+    printf("R15: 0x%x\n", getR15());*/
 }
 
 void div_zero_exception_tester(args argsVec){
@@ -61,10 +63,19 @@ void clear(args argsVec){
 
 void getContent(args argsVec){
     char * address = (char *) argsVec[0];
-    unsigned char  * realAddress = (unsigned char *)hex2int(address);
+    uintptr_t realAddress = (uintptr_t)hex2int(address);
+    if (realAddress % ALIGNMENT != 0){
+        realAddress -= (realAddress % ALIGNMENT);
+    }
+    uint8_t * targetAddress = (uint8_t *) realAddress;
+
     printf("\n");
-    for(int i = 0; i < 32; i++){
-        printf("The contents of the memory address %x is %x \n", realAddress +i, realAddress[i]);
+    for(int i = 0; i < 8; i++){
+        printf("0x%x | %x %x %x %x |", targetAddress, targetAddress[BYTE_GROUP], targetAddress[BYTE_GROUP + 1],
+        targetAddress[BYTE_GROUP + 2], targetAddress[BYTE_GROUP + 3]);
+        printf(" %c %c %c %c", targetAddress[BYTE_GROUP], targetAddress[BYTE_GROUP + 1], targetAddress[BYTE_GROUP + 2], targetAddress[BYTE_GROUP + 3]);
+        printf("\n");
+        targetAddress += 4;
     }
     
 }
@@ -85,7 +96,7 @@ int calculateHours(){
 	int dec = getHours() & 240;
 	dec = dec >> 4;
 	int units = getHours() & 15;
-	return ((dec * 10 + units)-3)%24;
+	return ((dec * 10 + units)+21)%24;
 
 }
 
