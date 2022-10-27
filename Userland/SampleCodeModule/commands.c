@@ -22,7 +22,7 @@ void help(args argsVec, int argsNum){
 }
 
 void inforeg(args argsVec, int argsNum){
-    uint32_t registerVector[REGISTERS] = {0};
+    uint64_t registerVector[REGISTERS] = {0};
     sys_memcpy_asm(registerVector,REGISTERS);
 
     //Poner para imprimir los registros
@@ -65,7 +65,7 @@ void clear(args argsVec, int argsNum){
 }
 
 void getContent(args argsVec, int argsNum){
-    char * address = (char *) argsVec[argsNum];
+    char * address = (char *) argsVec[0];
     uintptr_t realAddress = (uintptr_t)hex2int(address);
     if (realAddress % ALIGNMENT != 0){
         realAddress -= (realAddress % ALIGNMENT);
