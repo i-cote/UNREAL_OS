@@ -51,8 +51,6 @@ static uint32_t font_size = 16;
 void biggie(args argsVec, int argsNum)
 {
 	if(font_size==8)
-		font_size = 14;
-	else if (font_size==14)
 		font_size = 16;
 	else if(font_size==16)
 		font_size =32;
@@ -64,8 +62,6 @@ void smalls(args argsVec, int argsNum)
 	if(font_size==32)
 		font_size = 16;
 	else if (font_size==16)
-		font_size = 14;
-	else if(font_size==14)
 		font_size = 8;
 	printf("\x1b\x5bsetFontSize %d",font_size);
 }
