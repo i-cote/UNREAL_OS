@@ -47,6 +47,16 @@ void inforeg(args argsVec, int argsNum){
     
 }
 
+void biggie(args argsVec, int argsNum)
+{
+	printf("\nAgrandir\n");
+}
+
+void smalls(args argsVec, int argsNum)
+{
+	printf("\nRapetissir\n");
+}
+
 void div_zero_exception_tester(args argsVec, int argsNum){
     int j=1,i=0;
     j=j/i;

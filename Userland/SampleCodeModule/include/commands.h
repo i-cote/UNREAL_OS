@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define COMMAND_NUMBER 8
+#define COMMAND_NUMBER 10
 #define MAX_PARAMS 4
 #define MAX_LENGHT 20
 #define ALIGNMENT 16
@@ -31,8 +31,12 @@ void tron_command(args argsVec, int argsNum);
 void time(args argsVec, int argsNum);
 void getContent(args argsVec, int argsNum);
 void clear(args argsVec, int argsNum);
+void biggie(args argsVec, int argsNum);
+void smalls(args argsVec, int argsNum);
 
 static commands_style commands[] = {
+    {"biggie", biggie, 0},
+    {"smalls", smalls, 0},
     {"inforeg", inforeg, 0},
     {"help", help, 0},
     {"divzero", div_zero_exception_tester, 0},
@@ -53,4 +57,4 @@ int uint_64toint(uint64_t number);
 
 int calculateHours();
 
-#endif 
+#endif
