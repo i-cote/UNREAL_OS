@@ -25,6 +25,7 @@ void inforeg(args argsVec, int argsNum){
     sys_memcpy_asm(registerVector,REGISTERS);
 
     //Poner para imprimir los registros
+<<<<<<< HEAD
     printfColor("\n", white);
     printfColor("Registers:\n", white);
     printfColor("RAX: 0x%x\n", white,registerVector[0]);
@@ -44,6 +45,27 @@ void inforeg(args argsVec, int argsNum){
     printfColor("R14: 0x%x\n", white,registerVector[14]);
     printfColor("R15: 0x%x\n", white,registerVector[15]);
     
+=======
+    printf("\n");
+    printf("Registers:\n");
+    printf("RAX: 0x%x\n", registerVector[0]);
+    printf("RBX: 0x%x\n", registerVector[1]);
+    printf("RCX: 0x%x\n", registerVector[2]);
+    printf("RDX: 0x%x\n", registerVector[3]);
+    printf("RBP: 0x%x\n", registerVector[4]);
+    printf("RSP: 0x%x\n", registerVector[5]);
+    printf("RDI: 0x%x\n", registerVector[6]);
+    printf("RSI: 0x%x\n", registerVector[7]);
+    printf("R8: 0x%x\n", registerVector[8]);
+    printf("R9: 0x%x\n", registerVector[9]);
+    printf("R10: 0x%x\n", registerVector[10]);
+    printf("R11: 0x%x\n", registerVector[11]);
+    printf("R12: 0x%x\n", registerVector[12]);
+    printf("R13: 0x%x\n", registerVector[13]);
+    printf("R14: 0x%x\n", registerVector[14]);
+    printf("R15: 0x%x\n", registerVector[15]);
+    printf("RIP: 0x%x\n", registerVector[16]);
+>>>>>>> a204ff6 (cambios para que funcione con el instruction pointer)
 }
 
 static uint32_t font_size = 16;

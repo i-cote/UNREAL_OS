@@ -8,7 +8,7 @@
 #define MAX_LENGHT 20
 #define ALIGNMENT 16
 #define BYTE_GROUP 4
-#define REGISTERS 16
+#define REGISTERS 17
 
 typedef char args[MAX_PARAMS][MAX_LENGHT];
 
