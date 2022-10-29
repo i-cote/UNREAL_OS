@@ -53,9 +53,10 @@ void biggie(args argsVec, int argsNum)
 	if(font_size==8)
 		font_size = 14;
 	else if (font_size==14)
-		font_size == 16;
+		font_size = 16;
 	else if(font_size==16)
 		font_size =32;
+	printf("\x1b\x5bsetFontSize %d",font_size);
 }
 
 void smalls(args argsVec, int argsNum)
@@ -66,6 +67,7 @@ void smalls(args argsVec, int argsNum)
 		font_size = 14;
 	else if(font_size==14)
 		font_size = 8;
+	printf("\x1b\x5bsetFontSize %d",font_size);
 }
 
 void div_zero_exception_tester(args argsVec, int argsNum){

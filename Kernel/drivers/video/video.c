@@ -161,9 +161,29 @@ void print_utf8(utf8_sequence utf8,uint64_t count,Color color)
 	if (x > screen_data->width - get_font_glyph_width())
 		printNewline();
 }
+int64_t check_console_driver_commands(const char * command)
+{
+	if(memcompare(command,"\x1b\x5bsetFontSize",strlen("\x1b\x5bsetFontSize"))==0)
+	{
+		uint32_t offset_size = strlen(command)-strlen("\x1b\x5bsetFontSize");
+		char * size = command+strlen("\x1b\x5bsetFontSize ");
+		if(memcompare(size,"8",1) == 0)
+			set_font(8);
+		else if (memcompare(size,"14",2) == 0)
+			set_font(14);
+		else if (memcompare(size,"16",2) == 0)
+			set_font(16);
+		else if (memcompare(size,"32",2) == 0)
+			set_font(32);
+		return 0;
+	}
+	return -1;
+}
 
 void printStringColor(char *str, Color color)
 {
+	if(check_console_driver_commands(str)==0)
+		return;
 	uint64_t count = strlen(str);
 	int64_t old_index = 0;
 	int64_t new_index = 0;
