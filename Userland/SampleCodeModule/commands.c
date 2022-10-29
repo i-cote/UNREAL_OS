@@ -47,14 +47,25 @@ void inforeg(args argsVec, int argsNum){
     
 }
 
+static uint32_t font_size = 16;
 void biggie(args argsVec, int argsNum)
 {
-	printf("\nAgrandir\n");
+	if(font_size==8)
+		font_size = 14;
+	else if (font_size==14)
+		font_size == 16;
+	else if(font_size==16)
+		font_size =32;
 }
 
 void smalls(args argsVec, int argsNum)
 {
-	printf("\nRapetissir\n");
+	if(font_size==32)
+		font_size = 16;
+	else if (font_size==16)
+		font_size = 14;
+	else if(font_size==14)
+		font_size = 8;
 }
 
 void div_zero_exception_tester(args argsVec, int argsNum){
