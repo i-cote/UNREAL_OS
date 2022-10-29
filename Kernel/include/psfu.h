@@ -11,16 +11,12 @@ typedef struct {
 	uint32_t height;        /* height in pixels */
 	uint32_t width;         /* width in pixels */
 } PSF_font;
-extern uint8_t _binary_drivers_console_fonts_lat1_08_psfu_start;
-extern uint8_t _binary_drivers_console_fonts_lat1_08_psfu_end;
-extern uint8_t _binary_drivers_console_fonts_lat1_10_psfu_start;
-extern uint8_t _binary_drivers_console_fonts_lat1_10_psfu_end;
-extern uint8_t _binary_drivers_console_fonts_lat1_12_psfu_start;
-extern uint8_t _binary_drivers_console_fonts_lat1_12_psfu_end;
-extern uint8_t _binary_drivers_console_fonts_lat1_14_psfu_start;
-extern uint8_t _binary_drivers_console_fonts_lat1_14_psfu_end;
-extern uint8_t _binary_drivers_console_fonts_lat1_16_psfu_start;
-extern uint8_t _binary_drivers_console_fonts_lat1_16_psfu_end;
+extern uint8_t _binary_drivers_console_fonts_Cyr_a8x8_psfu_start;
+extern uint8_t _binary_drivers_console_fonts_Cyr_a8x8_psfu_end;
+extern uint8_t _binary_drivers_console_fonts_Cyr_a8x14_psfu_start;
+extern uint8_t _binary_drivers_console_fonts_Cyr_a8x14_psfu_end;
+extern uint8_t _binary_drivers_console_fonts_Cyr_a8x16_psfu_start;
+extern uint8_t _binary_drivers_console_fonts_Cyr_a8x16_psfu_end;
 extern uint8_t _binary_drivers_console_fonts_latarcyrheb_sun32_psfu_start;
 extern uint8_t _binary_drivers_console_fonts_latarcyrheb_sun32_psfu_end;
 #endif

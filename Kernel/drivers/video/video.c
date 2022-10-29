@@ -4,6 +4,8 @@
 #include <defs.h>
 #include <font.h>
 #include <video.h>
+#include <utf8_parser.h>
+#include <font_manager.h>
 
 /*
 #define POS0 0
@@ -60,6 +62,24 @@ struct vbe_mode_info_structure
 uint16_t x = 0, y = 0;
 Color default_background = {0,0,0};
 
+void draw_bitmap(const void * bitmap, uint32_t x,uint32_t y, uint8_t width_in_bytes, uint8_t height_in_bytes, Color foreground, Color background)
+{
+	for(int i =0;i<height_in_bytes;i++)
+	{
+		for(int j=0;j<width_in_bytes;j++)
+		{
+			for(int k=0;k<8;k++)
+			{
+				if((*(((char*)bitmap)+i*width_in_bytes+j)) & (1<<(7-k)))
+					putPixel(x+j*8+k,y+i,foreground);
+				else
+					putPixel(x+j*8+k,y+i,background);
+
+			}
+		}
+	}
+}
+
 typedef struct vbe_mode_info_structure VBEModeInfoBlock;
 static VBEModeInfoBlock *screen_data = (void *)0x5C00;
 
@@ -101,153 +121,79 @@ void setBackgroundColor()
 	y = 0;
 }
 
-void printCharColor(char c, Color color)
-{
-	if (c == '\n')
-	{
-		printNewline();
-		return;
-	}
-	if(c ==0x7f)
-	{
-		x-=CHAR_WIDTH;
-		for(int h = 0;h<16;h++)
-		{
-			for(int w = 0;w<CHAR_WIDTH;w++)
-			{
-				putPixel(x+w,y+h,default_background);
-			}
-		}
-		return;
-	
-	}
-
-	if (c >= FIRST_CHAR && c <= LAST_CHAR)
-	{
-		const char *data = font + 32 * (c - 33);
-		for (int h = 0; h < 16; h++)
-		{
-			Color *pos = (Color *)getPosToPrint(x, y + h);
-			if (*data & 0b00000001)
-				pos[0] = color;
-			if (*data & 0b00000010)
-				pos[1] = color;
-			if (*data & 0b00000100)
-				pos[2] = color;
-			if (*data & 0b00001000)
-				pos[3] = color;
-			if (*data & 0b00010000)
-				pos[4] = color;
-			if (*data & 0b00100000)
-				pos[5] = color;
-			if (*data & 0b01000000)
-				pos[6] = color;
-			if (*data & 0b10000000)
-				pos[7] = color;
-			data++;
-			if (*data & 0b00000001)
-				pos[8] = color;
-			data++;
-		}
-	}
-
-	x += CHAR_WIDTH;
-	if (x > screen_data->width - CHAR_WIDTH)
-		printNewline();
-}
-
-/*
-void printCharWithSize(char c, int size)
-{
-	if (c == '\n')
-	{
-		printNewline();
-		return;
-	}
-
-	if (c >= FIRST_CHAR && c <= LAST_CHAR)
-	{
-		uint16_t init_x = x;
-		const char *data = font + 32 * (c - 33);
-		for (int h = 0; h < 16; h++)
-		{
-			// Color* pos = (Color*)getPosToPrint(x, y+h*size);
-			if (*data & 0b00000001)
-			{
-				printBlock(size, x, y);
-			}
-			if (*data & 0b00000010)
-			{
-				printBlock(size, x, y);
-			}
-			if (*data & 0b00000100)
-			{
-				printBlock(size, x, y);
-			}
-			if (*data & 0b00001000)
-			{
-				printBlock(size, x, y);
-			}
-			if (*data & 0b00010000)
-			{
-				printBlock(size, x, y);
-			}
-			if (*data & 0b00100000)
-			{
-				printBlock(size, x, y);
-			}
-			if (*data & 0b01000000)
-			{
-				printBlock(size, x, y);
-			}
-			if (*data & 0b10000000)
-			{
-				printBlock(size, x, y);
-			}
-			data++;
-			if (*data & 0b00000001)
-			{
-				printBlock(size, x, y);
-			}
-			data++;
-			x = init_x;
-			y += size;
-		}
-	}
-
-	x += CHAR_WIDTH * size;
-	if (x > screen_data->width - CHAR_WIDTH * size)
-		printNewline();
-}
-*/
-
 void printChar(char c)
 {
-	printCharColor(c, white);
+	print_utf8(c,1, white);
 }
 
 void printNewline()
 {
 	x = 0;
-	y += CHAR_HEIGHT;
-	if (y > screen_data->height - CHAR_HEIGHT)
+	y += get_font_glyph_height();
+	if (y > screen_data->height - get_font_glyph_height())
 	{
 		setBackgroundColor();
 		y = 0;
 	}
 }
 
+void print_utf8(utf8_sequence utf8,uint64_t count,Color color)
+{
+	if (count==1 && *utf8 == '\n')
+	{
+		printNewline();
+		return;
+	}
+	if(count==1 && *utf8==0x7f)
+	{
+		x-=get_font_glyph_width();
+		void * bitmap_pointer = get_bitmap_pointer(" ",1);
+		draw_bitmap(bitmap_pointer,x,y,get_font_glyph_width()/8,get_font_glyph_height(),color,default_background);
+		return;
+	
+	}
+
+	void * bitmap_pointer = get_bitmap_pointer(utf8,count);
+	if(bitmap_pointer==(void *)0)
+		return;
+	draw_bitmap(bitmap_pointer,x,y,get_font_glyph_width()/8,get_font_glyph_height(),color,default_background);
+	x += get_font_glyph_width();
+	if (x > screen_data->width - get_font_glyph_width())
+		printNewline();
+}
+
 void printStringColor(char *str, Color color)
 {
-	while (*str != '\0')
+	uint64_t count = strlen(str);
+	int64_t old_index = 0;
+	int64_t new_index = 0;
+	while(count>0)
 	{
-		printCharColor(*str, color);
-		str++;
+		new_index = utf8_index(str,count);
+		if(new_index>=0)
+		{
+			print_utf8(str,new_index+1,color);
+			str += (new_index+1);
+			count -= (new_index+1);
+		}
+		else
+		{
+			print_utf8("�",strlen("�"),color);
+			return;
+		}
+		old_index += new_index+1;
 	}
 }
 
 void printString(char *string)
 {
+	//Initialise font to default font
+	static font_initialised = 0;
+	if(!font_initialised)
+	{
+		initialise_font();
+		font_initialised = 1;
+	}
 	printStringColor(string, white);
 }
 

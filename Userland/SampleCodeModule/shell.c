@@ -16,7 +16,8 @@ de memoria posteriores a la misma.
 #define NULL ((void*)0)
 
 void shell(){
-    printf("Welcome to the shell!");
+    printf("Welcome to the shell!\n");
+    printf("Добро пожаловать в shell!");
     waiting_command();
 }
 

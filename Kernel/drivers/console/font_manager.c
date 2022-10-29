@@ -3,7 +3,7 @@
 #include <psfu.h>
 #include <font_manager.h>
 #include <lib.h>
-#define DEFAULT_FONT_SIZE 32
+#define DEFAULT_FONT_SIZE 16
  
 typedef struct {PSF_font * start;void * end;} FONT_FILE;
 static FONT_FILE * font_file;
@@ -12,31 +12,20 @@ static utf8_sequence * unicode_table;
 
 void set_font(uint8_t font_size)
 {
-
 	if(font_size==8)
 	{
-		font_file->start = (PSF_font *)&_binary_drivers_console_fonts_lat1_08_psfu_start;
-		font_file->end = (void *)&_binary_drivers_console_fonts_lat1_08_psfu_end;
-	}
-	else if(font_size==10)
-	{
-		font_file->start = (PSF_font *)&_binary_drivers_console_fonts_lat1_10_psfu_start;
-		font_file->end = (void *)&_binary_drivers_console_fonts_lat1_10_psfu_end;
-	}
-	else if(font_size==12)
-	{
-		font_file->start = (PSF_font *)&_binary_drivers_console_fonts_lat1_12_psfu_start;
-		font_file->end = (void *)&_binary_drivers_console_fonts_lat1_12_psfu_end;
+		font_file->start = (PSF_font *)&_binary_drivers_console_fonts_Cyr_a8x8_psfu_start;
+		font_file->end = (void *)&_binary_drivers_console_fonts_Cyr_a8x8_psfu_end;
 	}
 	else if(font_size==14)
 	{
-		font_file->start = (PSF_font *)&_binary_drivers_console_fonts_lat1_14_psfu_start;
-		font_file->end = (void *)&_binary_drivers_console_fonts_lat1_14_psfu_end;
+		font_file->start = (PSF_font *)&_binary_drivers_console_fonts_Cyr_a8x14_psfu_start;
+		font_file->end = (void *)&_binary_drivers_console_fonts_Cyr_a8x14_psfu_end;
 	}
 	else if(font_size==16)
 	{
-		font_file->start = (PSF_font *)&_binary_drivers_console_fonts_lat1_16_psfu_start;
-		font_file->end = (void *)&_binary_drivers_console_fonts_lat1_16_psfu_end;
+		font_file->start = (PSF_font *)&_binary_drivers_console_fonts_Cyr_a8x16_psfu_start;
+		font_file->end = (void *)&_binary_drivers_console_fonts_Cyr_a8x16_psfu_end;
 	}
 	else if(font_size==32)
 	{
@@ -50,8 +39,11 @@ void set_font(uint8_t font_size)
 
 	unicode_table = (utf8_sequence *)(bitmap_array+font_file->start->numglyph*font_file->start->bytesperglyph);
 
-	//TODO repaint the whole screen to show change of font
-
+	setBackgroundColor();
+}
+void initialise_font()
+{
+	set_font(DEFAULT_FONT_SIZE);
 }
 uint32_t get_font_glyph_width()
 {
