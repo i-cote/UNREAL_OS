@@ -241,7 +241,7 @@ getRegisters:
 	mov QWORD[registerBuffer + 104], r13
 	mov QWORD[registerBuffer + 112], r14
 	mov QWORD[registerBuffer + 120], r15
-	mov QWORD[registerBuffer + 128], rip
+	;mov QWORD[registerBuffer + 128], rip
 	
 	mov rax, registerBuffer
 	ret
