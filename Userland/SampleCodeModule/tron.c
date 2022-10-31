@@ -2,6 +2,7 @@
 #include <syscallsAPI.h>
 #include <stdioAPI.h>
 #include <beeper.h>
+#include <color.h>
 
 void tron(){
     tronMenu();
@@ -21,11 +22,11 @@ void tron(){
 
 void tronMenu(){
     clearScreen();
-    printf("Welcome to Tron!\n");
-    printf("Press spacebar start the game\n");
-    printf("Press q to exit the game\n\n");
-    printf("Player 1: W A S D\n");
-    printf("Player 2: I J K L\n");
+    printfColor("Welcome to Tron!\n",white);
+    printfColor("Press spacebar start the game\n",white);
+    printfColor("Press q to exit the game\n\n",white);
+    printfColor("Player 1: W A S D\n",white);
+    printfColor("Player 2: I J K L\n",white);
 
 }
 
@@ -39,7 +40,7 @@ void tronGame(){
     int c = 0;
 
     char player1_direction = 'd';
-    char player2_direction = 'a';
+    char player2_direction = 'j';
 
     int player1_status = 0;
     int player2_status = 0;
@@ -128,11 +129,11 @@ void tronGame(){
     }
     sys_print_asm(CLEAR_SCREEN,0,0);
     if (player1_status == 1){
-        printf("Player BLUE wins!\n");
+        printfColor("Player BLUE wins!\n",white);
         beep();
     }
     if (player2_status == 1){
-        printf("Player RED wins!\n");
+        printfColor("Player RED wins!\n",white);
         beep();
     }
 

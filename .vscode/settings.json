@@ -9,6 +9,8 @@
         "tron.h": "c",
         "commands.h": "c",
         "shell.h": "c",
-        "beeper.h": "c"
+        "beeper.h": "c",
+        "keyboard_driver.h": "c",
+        "console_driver.h": "c"
     }
 }

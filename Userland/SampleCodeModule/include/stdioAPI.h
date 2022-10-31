@@ -3,10 +3,11 @@
 
 #include <stdarg.h>
 #include <stdint.h>
+#include <color.h>
 
 void putChar(const char c);
 char getChar();
-int printf(const char* fmt, ...);
+int printfColor(const char* fmt, Color color, ...);
 int scanf(const char* fmt, ...);
 char* itoa(int num, char* str, int base);
 void swap(char *x, char *y);

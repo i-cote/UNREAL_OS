@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdioAPI.h>
 #include <stdio.h>
+#include <color.h>
 
 
 /*void putChar(char c) {
@@ -25,7 +26,7 @@ char getChar() {
 }
 
 
-int printf(const char* str, ...) {
+int printfColor(const char* str, Color color, ...) {
     va_list vl;
 	int i = 0, j=0;
 		char buff[100]={0}, tmp[20];
@@ -73,7 +74,7 @@ int printf(const char* str, ...) {
 	    }
 	    i++;
 	} 
-    sys_write_asm(1,buff,j);
+    sys_write_asm(1,buff,j,color);
     va_end(vl);
     return j;
 }

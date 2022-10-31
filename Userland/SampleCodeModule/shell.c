@@ -8,25 +8,25 @@ de memoria posteriores a la misma.
 
 #include <stdioAPI.h>
 #include <shell.h>
-#include <commands.h>
 #include <string.h>
 #include <syscallsAPI.h>
 #include <tron.h>
+#include <color.h>
 
 #define NULL ((void*)0)
 
 void shell(){
-    printf("Welcome to the shell!\n");
-    printf("Добро пожаловать в shell!");
+    printfColor("Welcome to the shell!\n", yellow);
+    printfColor("Добро пожаловать в shell!", yellow);
     waiting_command();
 }
 
 void waiting_command(){
     while (1)
     {
-        printf("\nType 'help' to see the available commands\n");
+        printfColor("\nType 'help' to see the available commands\n", yellow);
         char command_reader[MAX_READ];
-        printf("\n%s", "$ ");
+        printfColor("\n%s", pink,"$ ");
         int count = 0;
         char current;
         while ((current = getChar()) != ENTER)
@@ -35,13 +35,13 @@ void waiting_command(){
                 if (count > 0){
                     command_reader[count] = '\0';
                     count--;
-                    printf("%c", current);
+                    printfColor("%c", lime, current);
                 }
             }
             else if(current != -1){
                 command_reader[count] = current;
                 count++;
-                printf("%c", current);
+                printfColor("%c", lime, current);
             }
         }
         //Preparing the command for read
@@ -100,11 +100,11 @@ void reading_command(char command[MAX_LENGHT], args argsVec, int argsNum){
     }
     else if (found && !args_check)
     {
-        printf("\n Invalid params\n");
+        printfColor("\n Invalid params\n", white);
     }
     
     else{
-        printf("\n Command Not found\n");
+        printfColor("\n Command Not found\n", white);
     }
     
     

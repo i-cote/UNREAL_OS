@@ -1,24 +1,23 @@
 #include <stdint.h>
-#include <commands.h>
 #include <shell.h>
 #include <stdioAPI.h>
 #include <tron.h>
 #include <syscallsAPI.h>
-
+#include <color.h>
 
 void help(args argsVec, int argsNum){
-    printf("\n");
-    printf("Command List:\n");
-    printf("inforeg - Prints the registersof screenshot taken previously\n");
-    printf("divzero - Tests div zero exception\n");
-    printf("invopcode - TEsts invalid opcode exception\n");
-    printf("time - Prints the current time\n");
-    printf("clear - Clears the screen\n");
-    printf("tron - Lets you play tron\n");
-    printf("biggie - Lets you zoom in\n");
-    printf("smalls - Lets you zoom out\n");
-    printf("getContent - Print the next 32 bytes to the memory address you pass as an argument \n");
-    printf("help - Prints this menu\n");
+    printfColor("\n", white);
+    printfColor("Command List:\n", white);
+    printfColor(" *inforeg -> Prints the registers of screenshot taken previously\n",white);
+    printfColor(" *divzero -> Tests div zero exception\n",white);
+    printfColor(" *invopcode -> Tests invalid opcode exception\n",white);
+    printfColor(" *time -> Prints the current time\n",white);
+    printfColor(" *clear -> Clears the screen\n",white);
+    printfColor(" *tron -> Lets you play tron\n",white);
+    printfColor(" *biggie -> Lets you zoom in\n",white);
+    printfColor(" *smalls -> Lets you zoom out\n",white);
+    printfColor(" *getContent -> Print the next 32 bytes to the memory address you pass as an argument \n",white);
+    printfColor(" *help -> Prints this menu\n",white);
 }
 
 void inforeg(args argsVec, int argsNum){
@@ -26,24 +25,24 @@ void inforeg(args argsVec, int argsNum){
     sys_memcpy_asm(registerVector,REGISTERS);
 
     //Poner para imprimir los registros
-    printf("\n");
-    printf("Registers:\n");
-    printf("RAX: 0x%x\n", registerVector[0]);
-    printf("RBX: 0x%x\n", registerVector[1]);
-    printf("RCX: 0x%x\n", registerVector[2]);
-    printf("RDX: 0x%x\n", registerVector[3]);
-    printf("RBP: 0x%x\n", registerVector[4]);
-    printf("RSP: 0x%x\n", registerVector[5]);
-    printf("RDI: 0x%x\n", registerVector[6]);
-    printf("RSI: 0x%x\n", registerVector[7]);
-    printf("R8: 0x%x\n", registerVector[8]);
-    printf("R9: 0x%x\n", registerVector[9]);
-    printf("R10: 0x%x\n", registerVector[10]);
-    printf("R11: 0x%x\n", registerVector[11]);
-    printf("R12: 0x%x\n", registerVector[12]);
-    printf("R13: 0x%x\n", registerVector[13]);
-    printf("R14: 0x%x\n", registerVector[14]);
-    printf("R15: 0x%x\n", registerVector[15]);
+    printfColor("\n", white);
+    printfColor("Registers:\n", white);
+    printfColor("RAX: 0x%x\n", white,registerVector[0]);
+    printfColor("RBX: 0x%x\n", white,registerVector[1]);
+    printfColor("RCX: 0x%x\n", white,registerVector[2]);
+    printfColor("RDX: 0x%x\n", white,registerVector[3]);
+    printfColor("RBP: 0x%x\n", white,registerVector[4]);
+    printfColor("RSP: 0x%x\n", white,registerVector[5]);
+    printfColor("RDI: 0x%x\n", white,registerVector[6]);
+    printfColor("RSI: 0x%x\n", white,registerVector[7]);
+    printfColor("R8: 0x%x\n", white,registerVector[8]);
+    printfColor("R9: 0x%x\n", white,registerVector[9]);
+    printfColor("R10: 0x%x\n", white,registerVector[10]);
+    printfColor("R11: 0x%x\n", white,registerVector[11]);
+    printfColor("R12: 0x%x\n", white,registerVector[12]);
+    printfColor("R13: 0x%x\n", white,registerVector[13]);
+    printfColor("R14: 0x%x\n", white,registerVector[14]);
+    printfColor("R15: 0x%x\n", white,registerVector[15]);
     
 }
 
@@ -54,7 +53,7 @@ void biggie(args argsVec, int argsNum)
 		font_size = 16;
 	else if(font_size==16)
 		font_size =32;
-	printf("\x1b\x5bsetFontSize %d",font_size);
+	printfColor("\x1b\x5bsetFontSize %d",white,font_size);
 }
 
 void smalls(args argsVec, int argsNum)
@@ -63,7 +62,7 @@ void smalls(args argsVec, int argsNum)
 		font_size = 16;
 	else if (font_size==16)
 		font_size = 8;
-	printf("\x1b\x5bsetFontSize %d",font_size);
+	printfColor("\x1b\x5bsetFontSize %d",white,font_size);
 }
 
 void div_zero_exception_tester(args argsVec, int argsNum){
@@ -91,22 +90,22 @@ void getContent(args argsVec, int argsNum){
     }
     uint8_t * targetAddress = (uint8_t *) realAddress;
 
-    printf("\n");
+    printfColor("\n",white);
     for(int i = 0; i < 8; i++){
-        printf("0x%x | %x %x %x %x |", targetAddress, targetAddress[BYTE_GROUP], targetAddress[BYTE_GROUP + 1],
+        printfColor("0x%x | %x %x %x %x |", white,targetAddress, targetAddress[BYTE_GROUP], targetAddress[BYTE_GROUP + 1],
         targetAddress[BYTE_GROUP + 2], targetAddress[BYTE_GROUP + 3]);
-        printf(" %c %c %c %c", targetAddress[BYTE_GROUP], targetAddress[BYTE_GROUP + 1], targetAddress[BYTE_GROUP + 2], targetAddress[BYTE_GROUP + 3]);
-        printf("\n");
+        printfColor(" %c %c %c %c", white,targetAddress[BYTE_GROUP], targetAddress[BYTE_GROUP + 1], targetAddress[BYTE_GROUP + 2], targetAddress[BYTE_GROUP + 3]);
+        printfColor("\n",white);
         targetAddress += 4;
     }
     
 }
 
 void time(args argsVec, int argsNum){
-    printf("\n");
+    printfColor("\n",white);
     while(1){
         if(getStatusRegA()!=0x80){
-            printf("The time is: %d:%x:%x\n",calculateHours() ,getMinutes(),getSeconds());
+            printfColor("The time is: %d:%x:%x\n",white,calculateHours() ,getMinutes(),getSeconds());
             return;
         }
     }

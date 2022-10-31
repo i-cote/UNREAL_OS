@@ -5,29 +5,9 @@
 #include <console_driver.h>
 #include <time.h>
 #include <lib.h>
+#include <color.h>
 
 extern uint64_t registerBuffer;
-
-
-static uint64_t (*syscalls[256]) (int,char *, int,int,uint32_t *);
-
-//Function pointers to the handlers
-
-
-void initializeSyscallsArray() {
-	syscalls[READ_PORT] = sys_read;
-	syscalls[WRITE_PORT] = sys_write;
-    syscalls[PRINT_PORT] = sys_print;
-    syscalls[TICKER_PORT] = sys_ticker;
-    syscalls[MEMCPY_PORT] = sys_memcpy;
-}
-
-
-//arg is the number of syscall
-void syscallHandler(int arg, int fd, char * str, int length, int coor, uint32_t * dest){
-	//The args are the following: rdi, rsi, rdx
-	(*syscalls[arg])(fd, str, length,coor,dest);
-}
 
 //Here all the syscall handler functions
 
@@ -43,10 +23,10 @@ uint64_t sys_read(int fd, char * str, int length){
 }
 
 
-uint64_t sys_write(int fd, char * str, int length){
+uint64_t sys_write(int fd, char * str, int length, Color color){
     switch (fd){
         case STDOUT:
-            printString(str);
+            printStringColor(str, color);
             return length;
         case STDERR:
             printStringColor(str, red);

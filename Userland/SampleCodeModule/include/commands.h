@@ -12,7 +12,7 @@
 
 typedef char args[MAX_PARAMS][MAX_LENGHT];
 
-typedef struct commands_style
+typedef struct
 {
     char * name;
     void (*function) (args, int);

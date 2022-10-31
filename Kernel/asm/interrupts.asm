@@ -9,8 +9,8 @@ GLOBAL _exception0Handler
 GLOBAL _exception6Handler
 
 GLOBAL timerRoutine
-Global keyboardRoutine
-Global systemCallsRoutine
+GLOBAL keyboardRoutine
+GLOBAL systemCallsRoutine
 GLOBAL getRegisters
 GLOBAL registerBuffer
 
@@ -19,6 +19,18 @@ EXTERN timer_handler
 EXTERN exceptionDispatcher
 EXTERN fetchKeyboardEvent
 EXTERN syscallHandler
+
+EXTERN sys_read
+EXTERN sys_write
+EXTERN sys_memcpy
+EXTERN sys_print
+EXTERN sys_ticker 
+
+WRITE equ 1
+READ equ 0
+PRINT equ 4
+MEMCPY equ 6
+TICKER equ 5
 
 SECTION .text
 
@@ -158,11 +170,49 @@ systemCallsRoutine:
 	pushStateSys
 	mov rbp, rsp
 
-	call syscallHandler
+	mov rbx, rdi				;getting the id for syscall
+	
+	mov rdi, rsi				;rearranging the args for the syscall
+	mov rsi, rdx
+	mov rdx, rcx			
+	mov rcx, r8
+	mov r8, r9
 
+	cmp rbx, WRITE
+	je .write_handler
+	cmp rbx, READ
+	je .read_handler
+	cmp rbx, PRINT
+	je .print_handler
+	cmp rbx, TICKER
+	je .ticker_handler
+	cmp rbx, MEMCPY
+	je .memcpy_handler
+
+.end_sys:
 	mov rsp,rbp
 	popStateSys
 	iretq
+
+.write_handler:
+	call sys_write
+	jmp .end_sys
+
+.read_handler:
+	call sys_read
+	jmp .end_sys
+
+.print_handler:
+	call sys_print
+	jmp .end_sys
+
+.ticker_handler:
+	call sys_ticker
+	jmp .end_sys
+
+.memcpy_handler:
+	call sys_memcpy
+	jmp .end_sys
 
 _exception0Handler:
 	exceptionHandler 0

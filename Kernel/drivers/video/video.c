@@ -7,17 +7,6 @@
 #include <utf8_parser.h>
 #include <font_manager.h>
 
-/*
-#define POS0 0
-#define POS1 1
-#define POS2 2
-#define POS3 3
-#define POS4 4
-#define POS5 5
-#define POS6 6
-#define POS7 7
-#define POS8 8
-*/
 
 struct vbe_mode_info_structure
 {
@@ -182,6 +171,14 @@ int64_t check_console_driver_commands(const char * command)
 
 void printStringColor(char *str, Color color)
 {
+	//Initialise font to default font
+	static font_initialised = 0;
+	if(!font_initialised)
+	{
+		initialise_font();
+		font_initialised = 1;
+	}
+
 	if(check_console_driver_commands(str)==0)
 		return;
 	uint64_t count = strlen(str);
@@ -207,13 +204,6 @@ void printStringColor(char *str, Color color)
 
 void printString(char *string)
 {
-	//Initialise font to default font
-	static font_initialised = 0;
-	if(!font_initialised)
-	{
-		initialise_font();
-		font_initialised = 1;
-	}
 	printStringColor(string, white);
 }
 
