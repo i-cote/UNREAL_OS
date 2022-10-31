@@ -1,4 +1,5 @@
 #include <keyboard_driver.h>
+#include <registorsSnapshot.h>
 
 //No scancode redef like undef
 #define UNDEF (char*)0
@@ -61,7 +62,10 @@ const char * console_mapper (const struct pressedKeys * keyboardState)
 		}
 		else if(specialKey == current_language_mapping->specialKeys.crtl)
 		{
-		
+			uint16_t keycode = MAIN_MAP_HASH(keyboardState->keys[1]);
+			if(WITHIN_BOUNDS(keycode,SIZE_MAIN_MAP))
+				if(*(current_language_mapping->main_map[keycode])=='a')
+					save_registors();
 		}
 		else if(specialKey == current_language_mapping->specialKeys.alt_gr)
 		{

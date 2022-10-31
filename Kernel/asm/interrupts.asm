@@ -11,8 +11,7 @@ GLOBAL _exception6Handler
 GLOBAL timerRoutine
 Global keyboardRoutine
 Global systemCallsRoutine
-GLOBAL getRegisters
-GLOBAL registerBuffer
+GLOBAL stackAddrAfterPushState
 
 EXTERN irqDispatcher
 EXTERN timer_handler
@@ -55,6 +54,7 @@ picSlaveMask:
 %macro pushState 0
 	push rax
 	pushStateSys
+	mov [stackAddrAfterPushState], rsp 
 %endmacro 	
 
 %macro pushStateSys 0
@@ -170,28 +170,7 @@ _exception0Handler:
 _exception6Handler:
 	exceptionHandler 6
 
-getRegisters:
-	mov QWORD[registerBuffer], rax
-	mov QWORD[registerBuffer + 8], rbx
-	mov QWORD[registerBuffer + 16], rcx
-	mov QWORD[registerBuffer + 24], rdx
-	mov QWORD[registerBuffer + 32], rbp
-	mov QWORD[registerBuffer + 40], rsp
-	mov QWORD[registerBuffer + 48], rsi
-	mov QWORD[registerBuffer + 56], rdi
-	mov QWORD[registerBuffer + 64], r8
-	mov QWORD[registerBuffer + 72], r9
-	mov QWORD[registerBuffer + 80], r10
-	mov QWORD[registerBuffer + 88], r11
-	mov QWORD[registerBuffer + 96], r12
-	mov QWORD[registerBuffer + 104], r13
-	mov QWORD[registerBuffer + 112], r14
-	mov QWORD[registerBuffer + 120], r15
-	
-	mov rax, registerBuffer
-	ret
-
 
 SECTION .bss
+	stackAddrAfterPushState resb 8
 	aux resq 1
-	registerBuffer resb 128

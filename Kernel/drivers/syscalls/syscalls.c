@@ -5,8 +5,7 @@
 #include <console_driver.h>
 #include <time.h>
 #include <lib.h>
-
-extern uint64_t registerBuffer;
+#include <registorsSnapshot.h>
 
 
 static uint64_t (*syscalls[256]) (int,char *, int,int,uint32_t *);
@@ -83,6 +82,6 @@ uint64_t sys_ticker(int fd, int length){
 }
 
 uint64_t sys_memcpy(uint64_t * dest, int length){
-    memcpy(dest,&registerBuffer, length * sizeof(uint64_t));
+    fetch_saved_registors(dest, length * sizeof(uint64_t));
     return 0;
 }
