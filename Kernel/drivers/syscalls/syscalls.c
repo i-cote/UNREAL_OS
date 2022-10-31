@@ -63,6 +63,6 @@ uint64_t sys_ticker(int fd, int length){
 }
 
 uint64_t sys_memcpy(uint64_t * dest, int length){
-    memcpy(dest,&registerBuffer, length * sizeof(uint64_t));
+    fetch_saved_registors(dest, length * sizeof(uint64_t));
     return 0;
 }
