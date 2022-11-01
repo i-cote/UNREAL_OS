@@ -23,7 +23,8 @@ uint64_t sys_read(int fd, char * str, int length){
     }
 }
 
-
+// Syscall used to write in the screen
+// Arguments, fd is the file descriptor, str is the buffer, length is dim and color is the color
 uint64_t sys_write(int fd, char * str, int length, Color color){
     switch (fd){
         case STDOUT:
@@ -37,6 +38,8 @@ uint64_t sys_write(int fd, char * str, int length, Color color){
     }
 }
 
+// Syscall used to print blocks of color in the screen
+// Arguments, fd is the player that is printing, length is the x coordinate and coor is the y coordinate
 uint64_t sys_print(int fd, int length, int coor){
     switch (fd){
         case PLAYER_ONE:
@@ -50,6 +53,7 @@ uint64_t sys_print(int fd, int length, int coor){
     }
 }
 
+// Syscall used to access tick functions on kernel
 uint64_t sys_ticker(int fd, int length){
     switch (fd){
         case GET_TICKS:
@@ -63,6 +67,7 @@ uint64_t sys_ticker(int fd, int length){
     }
 }
 
+// Syscall used to copy kernel memory to userland
 uint64_t sys_memcpy(uint64_t * dest, int length){
     fetch_saved_registors(dest, length * sizeof(uint64_t));
     return 0;

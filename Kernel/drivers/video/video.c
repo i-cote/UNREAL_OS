@@ -98,6 +98,7 @@ void putPixel(uint16_t x, uint16_t y, Color color)
 	*pos = color;
 }
 
+// Sets the background color
 void setBackgroundColor()
 {
 	for (int i = 0; i < SCREEN_WIDTH; i++)

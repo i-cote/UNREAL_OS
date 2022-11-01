@@ -1,5 +1,6 @@
 #include <color.h>
 
+//Struct that holds the RGB values of a color
 const Color white = {0xFF, 0xFF, 0xFF};
 const Color red = {0x00, 0x00, 0xFF};
 const Color lime = {0x00, 0xFF, 0x00};

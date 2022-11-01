@@ -222,9 +222,7 @@ _exception0Handler:
 _exception6Handler:
 	exceptionHandler 6
 
-<<<<<<< HEAD
-=======
-getRegisters:
+getRegisters: ;Copies registers to a buffer in memory
 	mov QWORD[registerBuffer], rax
 	mov QWORD[registerBuffer + 8], rbx
 	mov QWORD[registerBuffer + 16], rcx
@@ -246,12 +244,8 @@ getRegisters:
 	mov rax, registerBuffer
 	ret
 
->>>>>>> a204ff6 (cambios para que funcione con el instruction pointer)
 
 SECTION .bss
 	stackAddrAfterPushState resb 8
 	aux resq 1
-<<<<<<< HEAD
-=======
 	registerBuffer resb 136
->>>>>>> a204ff6 (cambios para que funcione con el instruction pointer)
