@@ -172,7 +172,7 @@ int64_t check_console_driver_commands(const char * command)
 void printStringColor(char *str, Color color)
 {
 	//Initialise font to default font
-	static font_initialised = 0;
+	static int font_initialised = 0;
 	if(!font_initialised)
 	{
 		initialise_font();
@@ -204,8 +204,6 @@ void printStringColor(char *str, Color color)
 
 void printString(char *string)
 {
-<<<<<<< HEAD
-=======
 	//Initialise font to default font
 	static int font_initialised = 0;
 	if(!font_initialised)
@@ -213,7 +211,6 @@ void printString(char *string)
 		initialise_font();
 		font_initialised = 1;
 	}
->>>>>>> b419288 (Fixing warning on my part)
 	printStringColor(string, white);
 }
 

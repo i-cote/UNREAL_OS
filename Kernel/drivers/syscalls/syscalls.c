@@ -6,6 +6,7 @@
 #include <time.h>
 #include <lib.h>
 #include <color.h>
+#include <registorsSnapshot.h>
 
 extern uint64_t registerBuffer;
 

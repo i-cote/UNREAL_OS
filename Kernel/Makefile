@@ -12,7 +12,7 @@ KERNEL=kernel.bin
 KERNELELF=kernel.elf
 SOURCES=$(shell find . -type f -name "*.c")
 FONTS=$(shell find . -type f -name "*.psfu")
-FONTS_ELF=$(FONTS:.psfu=.psfu.o)
+FONTS_ELF=$(FONTS:.psfu=.o)
 SOURCES_ASM=$(wildcard asm/*.asm)
 OBJECTS=$(SOURCES:.c=.o)
 OBJECTS_ASM=$(SOURCES_ASM:.asm=.o)
@@ -33,7 +33,7 @@ $(KERNEL): $(LOADEROBJECT) $(OBJECTS) $(STATICLIBS) $(OBJECTS_ASM) $(FONTS_ELF)
 %.o : %.asm
 	$(ASM) $(ASMFLAGS) $< -o $@
 
-%.psfu.o: %.psfu
+%.o: %.psfu
 	objcopy -O elf64-x86-64 -B i386 -I binary $< $@
 
 $(LOADEROBJECT):
