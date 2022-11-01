@@ -1,6 +1,8 @@
 #ifndef PSFU_H
 #define PSFU_H
 #define PSF_FONT_MAGIC 0x864ab572
+#include <stdint.h>
+
 typedef struct {
 	uint32_t magic;         /* magic bytes to identify PSF */
 	uint32_t version;       /* zero */
