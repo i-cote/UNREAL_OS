@@ -7,6 +7,7 @@ GLOBAL picSlaveMask
 
 GLOBAL _exception0Handler
 GLOBAL _exception6Handler
+GLOBAL _exception8Handler
 
 GLOBAL timerRoutine
 GLOBAL keyboardRoutine
@@ -223,6 +224,9 @@ _exception0Handler:
 
 _exception6Handler:
 	exceptionHandler 6
+	
+_exception8Handler:
+	exceptionHandler 8
 
 getRegisters: ;Copies registers to a buffer in memory
 	mov QWORD[registerBuffer], rax
