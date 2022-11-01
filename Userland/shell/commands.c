@@ -28,22 +28,22 @@ void inforeg(args argsVec, int argsNum){
 
     printfColor("\n", white);
     printfColor("Registers:\n", white);
-    printfColor("RAX: 0x%x\n", white,registerVector[0]);
-    printfColor("RBX: 0x%x\n", white,registerVector[1]);
-    printfColor("RCX: 0x%x\n", white,registerVector[2]);
-    printfColor("RDX: 0x%x\n", white,registerVector[3]);
-    printfColor("RBP: 0x%x\n", white,registerVector[4]);
-    printfColor("RSP: 0x%x\n", white,registerVector[5]);
-    printfColor("RDI: 0x%x\n", white,registerVector[6]);
-    printfColor("RSI: 0x%x\n", white,registerVector[7]);
-    printfColor("R8: 0x%x\n", white,registerVector[8]);
-    printfColor("R9: 0x%x\n", white,registerVector[9]);
-    printfColor("R10: 0x%x\n", white,registerVector[10]);
-    printfColor("R11: 0x%x\n", white,registerVector[11]);
-    printfColor("R12: 0x%x\n", white,registerVector[12]);
-    printfColor("R13: 0x%x\n", white,registerVector[13]);
-    printfColor("R14: 0x%x\n", white,registerVector[14]);
-    printfColor("R15: 0x%x\n", white,registerVector[15]);
+    printfColor("RAX: 0x%x\n", white,registerVector[15]);
+    printfColor("RBX: 0x%x\n", white,registerVector[14]);
+    printfColor("RCX: 0x%x\n", white,registerVector[13]);
+    printfColor("RDX: 0x%x\n", white,registerVector[12]);
+    printfColor("RBP: 0x%x\n", white,registerVector[11]);
+    printfColor("RSP: 0x%x\n", white,registerVector[10]);
+    printfColor("RDI: 0x%x\n", white,registerVector[9]);
+    printfColor("RSI: 0x%x\n", white,registerVector[8]);
+    printfColor("R8: 0x%x\n", white,registerVector[7]);
+    printfColor("R9: 0x%x\n", white,registerVector[6]);
+    printfColor("R10: 0x%x\n", white,registerVector[5]);
+    printfColor("R11: 0x%x\n", white,registerVector[4]);
+    printfColor("R12: 0x%x\n", white,registerVector[3]);
+    printfColor("R13: 0x%x\n", white,registerVector[2]);
+    printfColor("R14: 0x%x\n", white,registerVector[1]);
+    printfColor("R15: 0x%x\n", white,registerVector[0]);
     
 }
 
