@@ -14,6 +14,7 @@
 }
 */
 
+// Returns a character pressed by the user
 char getChar() {
     char c[2] = {0};
 	//We are going to read only one character
@@ -25,7 +26,9 @@ char getChar() {
 		return -1;
 }
 
-
+// Prints on screen a string with a given color
+// Arguments: string to print, color, and variable number of arguments to format the string
+// Returns: number of characters printed
 int printfColor(const char* str, Color color, ...) {
     va_list vl;
 	int i = 0, j=0;
@@ -79,6 +82,9 @@ int printfColor(const char* str, Color color, ...) {
     return j;
 }
 
+// Reads a string from the keyboard
+// Arguments: string to format, and variable number of arguments to format the string
+// Returns: number of characters read
 int scanf(const char* str, ...) {
     va_list vl;
     int i = 0, j=0, ret = 0;
@@ -148,14 +154,9 @@ void reverse(char * str, int length)
     }
 }
 
-void swap(char *x, char *y)
-{
-    char temp = *x;
-    *x = *y;
-    *y = temp;
-}
- 
-// Implementation of itoa()
+// Implementation of itoa(). Converts an integer to a string
+// Arguments: number to convert, string to store the result, base
+// Returns: string with the number converted
 char* itoa(int num, char* str, int base)
 {
     int i = 0;
@@ -197,6 +198,7 @@ char* itoa(int num, char* str, int base)
     return str;
 }
 
+// Clears the screen
 void clearScreen() {
 	sys_print_asm(3,0,0);
 }

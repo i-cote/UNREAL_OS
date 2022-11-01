@@ -5,6 +5,7 @@
 #include <syscallsAPI.h>
 #include <color.h>
 
+// Prints on screen the help menu
 void help(args argsVec, int argsNum){
     printfColor("\n", white);
     printfColor("Command List:\n", white);
@@ -20,11 +21,11 @@ void help(args argsVec, int argsNum){
     printfColor(" *help -> Prints this menu\n",white);
 }
 
+// Prints on screen the registers of the screenshot taken previously
 void inforeg(args argsVec, int argsNum){
     uint64_t registerVector[REGISTERS] = {0};
     sys_memcpy_asm(registerVector,REGISTERS);
 
-    //Poner para imprimir los registros
     printfColor("\n", white);
     printfColor("Registers:\n", white);
     printfColor("RAX: 0x%x\n", white,registerVector[0]);
@@ -47,6 +48,8 @@ void inforeg(args argsVec, int argsNum){
 }
 
 static uint32_t font_size = 16;
+
+// Increases the font size
 void biggie(args argsVec, int argsNum)
 {
 	if(font_size==8)
@@ -56,6 +59,7 @@ void biggie(args argsVec, int argsNum)
 	printfColor("\x1b\x5bsetFontSize %d",white,font_size);
 }
 
+// Decreases the font size
 void smalls(args argsVec, int argsNum)
 {
 	if(font_size==32)
@@ -65,23 +69,28 @@ void smalls(args argsVec, int argsNum)
 	printfColor("\x1b\x5bsetFontSize %d",white,font_size);
 }
 
+// Function to test div zero exception
 void div_zero_exception_tester(args argsVec, int argsNum){
     int j=1,i=0;
     j=j/i;
 }
 
+// Function to test invalid opcode exception
 void invalid_opcode_exception_tester(args argsVec, int argsNum){
     invalidOpcodeTester();
 }
 
+// Function to run tron
 void tron_command(args argsVec, int argsNum){
     tron();
 }
 
+// Clears shell
 void clear(args argsVec, int argsNum){
     clearScreen();
 }
 
+// Prints the 32 bytes of memory starting at the address passed as an argument
 void getContent(args argsVec, int argsNum){
     char * address = (char *) argsVec[0];
     uintptr_t realAddress = (uintptr_t)hex2int(address);
@@ -101,6 +110,7 @@ void getContent(args argsVec, int argsNum){
     
 }
 
+// Prints the current time
 void time(args argsVec, int argsNum){
     printfColor("\n",white);
     while(1){
@@ -111,7 +121,7 @@ void time(args argsVec, int argsNum){
     }
 }
 
-
+// Changes hour format from UTC to local time (UTC-3)
 int calculateHours(){
 
 	int dec = getHours() & 240;

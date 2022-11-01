@@ -3,12 +3,11 @@ GLOBAL setScanCodeSetToOne
 
 section .text
 
-;TODO implement this function
-setScanCodeSetToOne:
+setScanCodeSetToOne: ;Sets scan code to 1
 	nop
 	ret
 
-fetchScanCodeByte:
+fetchScanCodeByte: ;Returns scan code byte
 	mov rax, 0
 	in al, 60h
 	ret

@@ -146,7 +146,7 @@ picSlaveMask:
 	out 20h, al
 %endmacro
 
-timerRoutine:
+timerRoutine: ;Timer tick handler
     pushState
 
 	call timer_handler
@@ -157,7 +157,7 @@ timerRoutine:
 	popState
 	iretq
 
-keyboardRoutine:
+keyboardRoutine: ;Keyboard Interrupt handler
     pushState
 
 	call fetchKeyboardEvent
@@ -168,7 +168,7 @@ keyboardRoutine:
 	popState
 	iretq
 
-systemCallsRoutine:
+systemCallsRoutine:  ;Arguments received depending on the system call
 	pushStateSys
 	mov rbp, rsp
 
@@ -179,7 +179,8 @@ systemCallsRoutine:
 	mov rdx, rcx			
 	mov rcx, r8
 	mov r8, r9
-
+ 
+	;calling the syscall
 	cmp rbx, WRITE
 	je .write_handler
 	cmp rbx, READ
@@ -239,8 +240,8 @@ getRegisters: ;Copies registers to a buffer in memory
 	mov QWORD[registerBuffer + 104], r13
 	mov QWORD[registerBuffer + 112], r14
 	mov QWORD[registerBuffer + 120], r15
-	;mov QWORD[registerBuffer + 128], rip
 	
+	;Return address of buffer in .bss
 	mov rax, registerBuffer
 	ret
 

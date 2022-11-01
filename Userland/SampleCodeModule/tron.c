@@ -4,6 +4,8 @@
 #include <beeper.h>
 #include <color.h>
 
+// Start of the game
+// Awaits for the user to press the space bar to start the game
 void tron(){
     tronMenu();
     char c = 0;
@@ -20,6 +22,7 @@ void tron(){
     
 }
 
+// Prints the menu of the game
 void tronMenu(){
     clearScreen();
     printfColor("Welcome to Tron!\n",white);
@@ -30,6 +33,12 @@ void tronMenu(){
 
 }
 
+// Runs the game
+// Sets the initial position of the players and the initial direction
+// Waits for the user to press a key to change the direction of the players
+// Checks if the players have collided with the walls or with each other
+// Prints the new position of the players
+// When it ends, it prints the winner and makes a beep
 void tronGame(){
     sys_print_asm(CLEAR_SCREEN,0,0);
     player_position player1 = {300,500,BLOCK_SIZE,0};
