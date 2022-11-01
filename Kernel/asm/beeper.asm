@@ -1,8 +1,8 @@
-GLOBAL inb
-GLOBAL outb
+GLOBAL sys_beepInb
+GLOBAL sys_beepOutb
 
 SECTION .text:
-inb:
+sys_beepInb:
     push rbp
     mov rbp, rsp
     mov rdx, rdi
@@ -10,7 +10,7 @@ inb:
     leave
     ret
 
-outb:
+sys_beepOutb:
     push rbp
     mov rbp, rsp
     mov rax, rsi

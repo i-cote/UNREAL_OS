@@ -88,7 +88,7 @@ int printfColor(const char* str, Color color, ...) {
 int scanf(const char* str, ...) {
     va_list vl;
     int i = 0, j=0, ret = 0;
-    char buff[100] = {0}, tmp[20], c;
+    char buff[100] = {0};
     char *out_loc;
     sys_read_asm(1,buff,100);
  	va_start( vl, str );

@@ -23,16 +23,21 @@ EXTERN fetchKeyboardEvent
 EXTERN syscallHandler
 
 EXTERN sys_read
+EXTERN sys_beepInb
+EXTERN sys_beepOutb
 EXTERN sys_write
 EXTERN sys_memcpy
 EXTERN sys_print
 EXTERN sys_ticker 
 
-WRITE equ 1
 READ equ 0
+WRITE equ 1
+BEEP_INB equ 2
+BEEP_OUTB equ 3
 PRINT equ 4
 MEMCPY equ 6
 TICKER equ 5
+
 
 SECTION .text
 
@@ -187,6 +192,10 @@ systemCallsRoutine:  ;Arguments received depending on the system call
 	je .write_handler
 	cmp rbx, READ
 	je .read_handler
+	cmp rbx, BEEP_INB
+	je .beep_inb_handler
+	cmp rbx, BEEP_OUTB
+	je .beep_outb_handler
 	cmp rbx, PRINT
 	je .print_handler
 	cmp rbx, TICKER
@@ -205,6 +214,14 @@ systemCallsRoutine:  ;Arguments received depending on the system call
 
 .read_handler:
 	call sys_read
+	jmp .end_sys
+
+.beep_inb_handler:
+	call sys_beepInb
+	jmp .end_sys
+
+.beep_outb_handler:
+	call sys_beepOutb
 	jmp .end_sys
 
 .print_handler:

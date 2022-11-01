@@ -77,7 +77,7 @@ static VBEModeInfoBlock *screen_data = (void *)0x5C00;
 void *getPosToPrint(uint16_t x, uint16_t y)
 {
 	// The 3 is because there is a difference of 3 addresses of 8bits each one for the colors. I mean we have a pixel every 3 bytes.
-	return (void *)(screen_data->framebuffer + 3 * (x + (y * screen_data->width)));
+	return (void *)((uint64_t)(screen_data->framebuffer + 3 * (x + (y * screen_data->width))));
 }
 
 boolean checkValidPos(uint16_t x, uint16_t y)

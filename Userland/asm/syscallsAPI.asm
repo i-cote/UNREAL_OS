@@ -2,7 +2,9 @@ GLOBAL sys_read_asm:
 GLOBAL sys_write_asm:
 GLOBAL sys_print_asm:
 GLOBAL sys_ticker_asm:
-GLOBAL sys_memcpy_asm:
+GLOBAL sys_memcpy_asm: 
+GLOBAL sys_inb_asm;
+GLOBAL sys_out_asm;
 
 SECTION .text
 
@@ -71,6 +73,30 @@ sys_memcpy_asm:
     mov rdx, rsi
     mov rsi, rdi
     mov rdi, 6
+    int 80h
+
+    mov rsp,rbp
+    pop rbp
+    ret
+
+sys_out_asm:
+    push rbp
+    mov rbp, rsp
+
+    mov rdx, rsi
+    mov rsi, rdi
+    mov rdi, 3
+
+    mov rsp, rbp
+    pop rbp
+    ret
+
+sys_inb_asm:
+    push rbp
+    mov rbp, rsp
+
+    mov rsi, rdi
+    mov rdi, 2
     int 80h
 
     mov rsp,rbp
