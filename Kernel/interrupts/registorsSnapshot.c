@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <lib.h>
 extern uint8_t * stackAddrAfterPushState;
 
 static uint64_t saved_registors[16];

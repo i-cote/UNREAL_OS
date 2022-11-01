@@ -1,4 +1,4 @@
-static struct language_mapping fr_mapping =	
+struct language_mapping fr_mapping =	
 	{
 		.main_map = {
 			"\x1b"/*escape*/,

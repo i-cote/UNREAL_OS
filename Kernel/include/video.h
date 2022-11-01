@@ -3,6 +3,7 @@
 
 #include <color.h>
 #include <defs.h>
+#include<utf8_parser.h>
 
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
@@ -29,5 +30,6 @@ void printHex(uint64_t num);
 void printBlock(int size, uint16_t x, uint16_t y);
 void printCharWithSize(char c, int size);
 int printBlockAt(uint16_t x_coor, uint16_t y_coor, Color color);
+void print_utf8(utf8_sequence utf8,uint64_t count,Color color);
 
 #endif

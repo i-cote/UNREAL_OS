@@ -11,7 +11,7 @@ void * memset(void * destination, int32_t c, uint64_t length)
 	return destination;
 }
 
-uint64_t * memcompare(void * s1, void * s2, uint64_t length)
+int32_t memcompare(const void * s1,const void * s2, uint64_t length)
 {
 	for(int i =0;i<length;i++)
 	{

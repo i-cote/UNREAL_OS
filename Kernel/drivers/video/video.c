@@ -6,6 +6,7 @@
 #include <video.h>
 #include <utf8_parser.h>
 #include <font_manager.h>
+#include <lib.h>
 
 
 struct vbe_mode_info_structure
@@ -112,7 +113,7 @@ void setBackgroundColor()
 
 void printChar(char c)
 {
-	print_utf8(c,1, white);
+	print_utf8((utf8_sequence)(&c),1, white);
 }
 
 void printNewline()
@@ -136,7 +137,7 @@ void print_utf8(utf8_sequence utf8,uint64_t count,Color color)
 	if(count==1 && *utf8==0x7f)
 	{
 		x-=get_font_glyph_width();
-		void * bitmap_pointer = get_bitmap_pointer(" ",1);
+		void * bitmap_pointer = get_bitmap_pointer((utf8_sequence)" ",1);
 		draw_bitmap(bitmap_pointer,x,y,get_font_glyph_width()/8,get_font_glyph_height(),color,default_background);
 		return;
 	
@@ -154,8 +155,7 @@ int64_t check_console_driver_commands(const char * command)
 {
 	if(memcompare(command,"\x1b\x5bsetFontSize",strlen("\x1b\x5bsetFontSize"))==0)
 	{
-		uint32_t offset_size = strlen(command)-strlen("\x1b\x5bsetFontSize");
-		char * size = command+strlen("\x1b\x5bsetFontSize ");
+		const char * size = command+strlen("\x1b\x5bsetFontSize ");
 		if(memcompare(size,"8",1) == 0)
 			set_font(8);
 		else if (memcompare(size,"14",2) == 0)
@@ -186,16 +186,16 @@ void printStringColor(char *str, Color color)
 	int64_t new_index = 0;
 	while(count>0)
 	{
-		new_index = utf8_index(str,count);
+		new_index = utf8_index((utf8_sequence)str,count);
 		if(new_index>=0)
 		{
-			print_utf8(str,new_index+1,color);
+			print_utf8((utf8_sequence)str,new_index+1,color);
 			str += (new_index+1);
 			count -= (new_index+1);
 		}
 		else
 		{
-			print_utf8("�",strlen("�"),color);
+			print_utf8((utf8_sequence)"�",strlen("�"),color);
 			return;
 		}
 		old_index += new_index+1;
@@ -204,6 +204,16 @@ void printStringColor(char *str, Color color)
 
 void printString(char *string)
 {
+<<<<<<< HEAD
+=======
+	//Initialise font to default font
+	static int font_initialised = 0;
+	if(!font_initialised)
+	{
+		initialise_font();
+		font_initialised = 1;
+	}
+>>>>>>> b419288 (Fixing warning on my part)
 	printStringColor(string, white);
 }
 
@@ -293,4 +303,3 @@ int printBlockAt(uint16_t x_coor, uint16_t y_coor, Color color) {
 	}
 	return 0;
 }
-

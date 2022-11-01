@@ -3,6 +3,7 @@
 #include <psfu.h>
 #include <font_manager.h>
 #include <lib.h>
+#include <video.h>
 #define DEFAULT_FONT_SIZE 16
  
 typedef struct {PSF_font * start;void * end;} FONT_FILE;
