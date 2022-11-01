@@ -16,8 +16,8 @@ OBJECTS_ASM=$(SOURCES_ASM:%.asm=%.o)
 all: $(MODULE)
 
 $(MODULE): $(SOURCES) $(OBJECTS_ASM)
-	$(GCC) $(GCCFLAGS) -I./include -T linker/sampleCodeModule.ld userland_entry/_loader.c $(OBJECTS_ASM) $(SOURCES) -o $(MODULE)
-	$(GCC) $(GCCFLAGS) -I./include -T linker/sampleCodeModuleELF.ld userland_entry/_loader.c $(OBJECTS_ASM) $(SOURCES) -o userModule.elf
+	$(GCC) $(GCCFLAGS) -I./include -T linker/userModule.ld userland_entry/_loader.c $(OBJECTS_ASM) $(SOURCES) -o $(MODULE)
+	$(GCC) $(GCCFLAGS) -I./include -T linker/userModuleELF.ld userland_entry/_loader.c $(OBJECTS_ASM) $(SOURCES) -o userModule.elf
 
 %.o : %.asm
 	$(ASM) $(ASMFLAGS) $< -o $@
