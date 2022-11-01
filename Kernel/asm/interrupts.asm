@@ -131,12 +131,13 @@ picSlaveMask:
 	call exceptionDispatcher
 
 	popState
-	;pisa la direccion de retorno del iretq y se dirige al puentero de
-	;shell que fue previamente incializado 
-	push rax
-	mov rax, 0x00400000
-	mov [rsp + 8], rax
-	pop rax
+	;override the iretq return address and goes to the start of the userland _loader.c archive
+	;this archive calls the main function of the userland and the main calls the shell
+	push rax 				;push rax to conserve it's data
+	mov rax, 0x00400000 			;address of _start in _loader.c
+	mov [rsp+8], rax 			;override the iretq return address
+	pop rax 				;restore rax
+	iretq
 	iretq
 %endmacro
 

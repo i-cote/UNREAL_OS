@@ -34,6 +34,8 @@ void loadIdt() {
   setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
   //invalid opcode exception
   setup_IDT_entry (0x06, (uint64_t)&_exception6Handler);
+  //double fault exception
+  setup_IDT_entry (0x08, (uint64_t)&_exception8Handler);
 
   //habilitando interrupcion de teclado y de timertick
 	picMasterMask(0xFC); 
