@@ -1,10 +1,30 @@
-all: sampleCodeModule
+GCC=gcc
+GPP=g++
+LD=ld
+AR=ar
+ASM=nasm
 
-sampleCodeModule:
-	cd SampleCodeModule; make
+GCCFLAGS=-g -m64 -fno-exceptions -std=c99 -Wall -ffreestanding -nostdlib -fno-common -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -fno-builtin-malloc -fno-builtin-free -fno-builtin-realloc
+ARFLAGS=rvs
+ASMFLAGS=-felf64
+
+MODULE=0000-sampleCodeModule.bin
+SOURCES=$(shell find . -type f -name "[^_]*.c")
+SOURCES_ASM=$(shell find . -type f -name "*.asm")
+OBJECTS_ASM=$(SOURCES_ASM:%.asm=%.o)
+
+all: $(MODULE)
+
+$(MODULE): $(SOURCES) $(OBJECTS_ASM)
+	$(GCC) $(GCCFLAGS) -I./include -T linker/sampleCodeModule.ld userland_entry/_loader.c $(OBJECTS_ASM) $(SOURCES) -o $(MODULE)
+	$(GCC) $(GCCFLAGS) -I./include -T linker/sampleCodeModuleELF.ld userland_entry/_loader.c $(OBJECTS_ASM) $(SOURCES) -o 0000-sampleCodeModule.elf
+
+%.o : %.asm
+	$(ASM) $(ASMFLAGS) $< -o $@
 
 clean:
-	cd SampleCodeModule; make clean
-	rm -rf *.bin *.elf
+	find . -type f -name "*.o" | xargs -I _ rm _
+	find . -type f -name "*.elf" | xargs -I _ rm _
+	find . -type f -name "*.bin" | xargs -I _ rm _
 
-.PHONY: sampleCodeModule all clean
+.PHONY: all clean print
