@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <color.h>
 #include <defs.h>
-#include <font.h>
 #include <video.h>
 #include <utf8_parser.h>
 #include <font_manager.h>
