@@ -2,6 +2,7 @@
 #include <interrupts.h>
 #define ZERO_EXCEPTION_ID 0
 #define INVALID_OPCODE_EXECPTION_ID 6
+#define DOUBLE_FAULT_EXCEPTION_ID 8
 
 static void zero_division();
 
