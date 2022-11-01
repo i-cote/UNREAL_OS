@@ -38,5 +38,5 @@ static void invalid_opcode() {
 }
 static void double_fault(){
 	printString("\n");
-	printString("Double Fault exception\nThis shouldn't happen but div zero exception suddenly stopped working :(\n");
+	printString("Double Fault exception\nThis shouldn't happen but div zero exception suddenly stopped working :(\nDouble Fault is an abort type pf exception so now you got to reboot the system");
 }
