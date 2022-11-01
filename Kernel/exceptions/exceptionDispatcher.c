@@ -7,6 +7,8 @@ static void zero_division();
 
 static void invalid_opcode();
 
+static void double_fault();
+
 void exceptionDispatcher(int exception) {
 	_cli();
 	switch (exception)	{
@@ -17,6 +19,9 @@ void exceptionDispatcher(int exception) {
 	case INVALID_OPCODE_EXECPTION_ID:
 		invalid_opcode();
 		break;
+	case DOUBLE_FAULT_EXCEPTION_ID:
+		double_fault();
+		break;	
 	}
 	_sti();
 }
@@ -29,4 +34,8 @@ static void zero_division() {
 static void invalid_opcode() {
 	printString("\n");
 	printString("Invalid opcode exception\n");
+}
+static void double_fault(){
+	printString("\n");
+	printString("Double Fault exception\nThis shouldn't happen but div zero exception suddenly stopped working :(\n");
 }
