@@ -7,12 +7,13 @@
 #include <stdio.h>
 #include <color.h>
 
-
-/*void putChar(char c) {
+// Prints a character to the screen
+// Arguments: character to print
+void putChar(char c) {
     printChar(c);
     return;
 }
-*/
+
 
 // Returns a character pressed by the user
 char getChar() {

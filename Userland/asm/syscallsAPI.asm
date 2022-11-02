@@ -8,11 +8,11 @@ GLOBAL sys_out_asm;
 
 SECTION .text
 
-sys_read_asm:
+sys_read_asm: ; int sys_read(int fd, char *buf, int count)
     push rbp
     mov rbp, rsp
 
-    mov r8,rcx
+    mov r8,rcx  ;Passing arguments from C to syscall parameters
     mov rcx,rdx
     mov rdx,rsi
     mov rsi,rdi
@@ -23,11 +23,11 @@ sys_read_asm:
     pop rbp
     ret
 
-sys_write_asm:
+sys_write_asm: ; int sys_write(int fd, char *buf, int count)
     push rbp
     mov rbp, rsp
 
-    mov r8,rcx
+    mov r8,rcx ;Passing arguments from C to syscall parameters
     mov rcx,rdx
     mov rdx,rsi
     mov rsi,rdi
@@ -38,11 +38,11 @@ sys_write_asm:
     pop rbp
     ret
     
-sys_print_asm:
+sys_print_asm: ; int sys_print(int fd, int length, int coor)
     push rbp
     mov rbp, rsp
 
-    mov r8,rcx
+    mov r8,rcx ;Passing arguments from C to syscall parameters
     mov rcx,rdx
     mov rdx,rsi
     mov rsi,rdi
@@ -53,11 +53,11 @@ sys_print_asm:
     pop rbp
     ret
 
-sys_ticker_asm:
+sys_ticker_asm: ; int sys_ticker(int fd, int length)
     push rbp
     mov rbp, rsp
 
-    mov rdx,rsi
+    mov rdx,rsi ;Passing arguments from C to syscall parameters
     mov rsi, rdi
     mov rdi, 5
     int 80h
@@ -66,11 +66,11 @@ sys_ticker_asm:
     pop rbp
     ret
 
-sys_memcpy_asm:
+sys_memcpy_asm: ; int sys_memcpy(char *buf, int count)
     push rbp
     mov rbp, rsp
 
-    mov rdx, rsi
+    mov rdx, rsi ;Passing arguments from C to syscall parameters
     mov rsi, rdi
     mov rdi, 6
     int 80h
@@ -79,11 +79,11 @@ sys_memcpy_asm:
     pop rbp
     ret
 
-sys_out_asm:
+sys_out_asm: ; int sys_out(int port, int value)
     push rbp
     mov rbp, rsp
 
-    mov rdx, rsi
+    mov rdx, rsi ;Passing arguments from C to syscall parameters
     mov rsi, rdi
     mov rdi, 3
 
@@ -91,11 +91,11 @@ sys_out_asm:
     pop rbp
     ret
 
-sys_inb_asm:
+sys_inb_asm: ; int sys_inb(int port)
     push rbp
     mov rbp, rsp
 
-    mov rsi, rdi
+    mov rsi, rdi ;Passing arguments from C to syscall parameters
     mov rdi, 2
     int 80h
 
