@@ -1,10 +1,3 @@
-/*List of commands:
--help, muestra func disponibles
--info reg, imprime los valores actuales de los registros
--hora 
--memdir reciba como parámetro una dirección de memoria e imprima por pantalla los 32 bytes 
-de memoria posteriores a la misma.
--big y smalls, Comando que permita agrandar o reducir el tamaño del texto de la pantalla*/
 
 #include <stdioAPI.h>
 #include <shell.h>

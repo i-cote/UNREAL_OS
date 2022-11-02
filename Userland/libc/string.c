@@ -2,6 +2,10 @@
 
 #define NULL ((void *)0)
 
+//
+// All of these implemented functions are parte of the standard C library
+//
+
 char *strcpy(char *dest, const char *src) {
     char *tmp = dest;
     while ((*dest++ = *src++) != '\0')

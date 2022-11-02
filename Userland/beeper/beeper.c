@@ -2,6 +2,8 @@
 #include <syscallsAPI.h>
 #include <stdioAPI.h>
 
+//https://wiki.osdev.org/PC_Speaker
+
 //Play sound using built in speaker
  void play_sound(uint32_t nFrequence) {
  	uint32_t Div;
