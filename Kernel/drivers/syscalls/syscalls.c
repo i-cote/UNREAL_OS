@@ -58,7 +58,7 @@ uint64_t sys_ticker(int fd, int length){
     switch (fd){
         case GET_TICKS:
             return ticks_elapsed();
-        case GET_SECONDS:
+        case GET_SECONDS_ELAPSED:
             return seconds_elapsed();
         case GET_TIME:
             return time_elapsed(length);
@@ -71,4 +71,19 @@ uint64_t sys_ticker(int fd, int length){
 uint64_t sys_memcpy(uint64_t * dest, int length){
     fetch_saved_registors(dest, length * sizeof(uint64_t));
     return 0;
+}
+
+uint64_t sys_accessRTC(int fd){
+    switch (fd){
+        case GET_HOURS:
+            return getHours();
+        case GET_MINUTES:
+            return getMinutes();
+        case GET_SECONDS:
+            return getSeconds();
+        case GET_STATUS_REG_A:
+            return getStatusRegA();
+        default:
+            return -1;
+    }
 }

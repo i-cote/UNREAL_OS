@@ -22,6 +22,7 @@ EXTERN exceptionDispatcher
 EXTERN fetchKeyboardEvent
 EXTERN syscallHandler
 
+EXTERN sys_accessRTC
 EXTERN sys_read
 EXTERN sys_beepInb
 EXTERN sys_beepOutb
@@ -37,6 +38,7 @@ BEEP_OUTB equ 3
 PRINT equ 4
 MEMCPY equ 6
 TICKER equ 5
+RTC equ 7
 
 
 SECTION .text
@@ -204,6 +206,8 @@ systemCallsRoutine:  ;Arguments received depending on the system call
 	je .ticker_handler
 	cmp rbx, MEMCPY
 	je .memcpy_handler
+	cmp rbx, RTC
+	je .rtc_handler
 
 .end_sys:
 	mov rsp,rbp
@@ -237,6 +241,10 @@ systemCallsRoutine:  ;Arguments received depending on the system call
 .memcpy_handler:
 	call sys_memcpy
 	jmp .end_sys
+
+.rtc_handler:
+    call sys_accessRTC
+	jmp .end_sys	
 
 _exception0Handler:
 	exceptionHandler 0

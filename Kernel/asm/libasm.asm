@@ -1,8 +1,8 @@
-GLOBAL cpuVendor:
-GLOBAL getStatusRegA:
-GLOBAL getSeconds:
-GLOBAL getMinutes:
-GLOBAL getHours:
+GLOBAL cpuVendor
+GLOBAL getStatusRegA
+GLOBAL getSeconds
+GLOBAL getMinutes
+GLOBAL getHours
 
 section .text
 	

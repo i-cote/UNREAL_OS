@@ -10,7 +10,7 @@
 // Prints a character to the screen
 // Arguments: character to print
 void putChar(char c) {
-    printChar(c);
+    sys_write_asm(STDOUT, &c, 1, white);
     return;
 }
 

@@ -9,5 +9,9 @@ int32_t memcompare(const void * s1,const void * s2, uint64_t length);
 uint64_t strlen(const char *s);
 
 char *cpuVendor(char *result);
+extern uint64_t getHours();
+extern uint64_t getMinutes();
+extern uint64_t getSeconds();
+extern uint64_t getStatusRegA();
 
 #endif

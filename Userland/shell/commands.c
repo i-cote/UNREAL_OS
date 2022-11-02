@@ -114,8 +114,8 @@ void getContent(args argsVec, int argsNum){
 void time(args argsVec, int argsNum){
     printfColor("\n",white);
     while(1){
-        if(getStatusRegA()!=0x80){
-            printfColor("The time is: %d:%x:%x\n",white,calculateHours() ,getMinutes(),getSeconds());
+        if(sys_accessRTC_asm(GET_STATUS_REG_A) !=0x80){
+            printfColor("The time is: %d:%x:%x\n",white,calculateHours() ,sys_accessRTC_asm(GET_MINUTES),sys_accessRTC_asm(GET_SECONDS));
             return;
         }
     }
@@ -124,9 +124,9 @@ void time(args argsVec, int argsNum){
 // Changes hour format from UTC to local time (UTC-3)
 int calculateHours(){
 
-	int dec = getHours() & 240;
+	int dec = sys_accessRTC_asm(GET_HOURS) & 240;
 	dec = dec >> 4;
-	int units = getHours() & 15;
+	int units = sys_accessRTC_asm(GET_HOURS) & 15;
 	return ((dec * 10 + units)+21)%24;
 
 }
