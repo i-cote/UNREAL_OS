@@ -9,6 +9,8 @@ static uint8_t scanCodeComplete = true;
 static uint16_t currentScanCode;
 static struct pressedKeys keyboardState;
 
+//Adds a key press to the keyboardState data structure
+//Arguments : the scan-code of the the key being pressed
 static void addKeyPress(uint16_t scanCode)
 {
 	if(keyboardState.nbOfPressedKeys==4)
@@ -27,6 +29,8 @@ static void addKeyPress(uint16_t scanCode)
 	_sti();
 }
 
+//Removes a key press from the keyboardState date structure
+//Arguments : the pressed version scan-code of the key
 static void removeKeyPress(uint16_t scanCode)
 {
 	for(int i =0;i<keyboardState.nbOfPressedKeys;i++)
@@ -43,13 +47,9 @@ static void removeKeyPress(uint16_t scanCode)
 	_sti();
 }
 
-void initialiseKeyboard()
-{
 
-	setScanCodeSetToOne();
-
-}
-
+//Checks whether the scan-code is for releasing or pressing
+//Arguments: el escancode recibido por fetchKeyboardEvent()
 static void updateCurrentPressedKeys(uint16_t scan)
 {
 	if((scan&0xFF)>0x80)

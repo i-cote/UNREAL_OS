@@ -11,6 +11,7 @@ static FONT_FILE * font_file;
 static void * bitmap_array;
 static utf8_sequence * unicode_table;
 
+//changes the size of the font by changing the current psfu file we are handling
 void set_font(uint8_t font_size)
 {
 	if(font_size==8)
@@ -62,6 +63,7 @@ static uint8_t get_size_of_current_utf8_in_unicode_table(void * pointer_in_unico
 	return utf8_index(pointer_in_unicode_table,font_file_end-pointer_in_unicode_table)+1;
 }
 
+//receives a valid sequence and returns a pointer into the bitmap table of the current psfu file using the unicode table of the psfu file.
 void * get_bitmap_pointer(const utf8_sequence utf8,uint8_t len)
 {
 	void * ret = (void *)0;

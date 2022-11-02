@@ -33,6 +33,9 @@ struct language_mapping
 //Currently mapping wih argentinian map ;)
 static struct language_mapping * current_language_mapping = &ar_mapping;
 
+//Given a set of pressed keys (in a certain order) returns the utf8 encoded string corresponding to it as  defined by the current language mapping
+//Arguments a pressedKeys struct give, by newInputToConsole
+//Returns a pointer to the utf8 encoded string that corresponds to the combination of keys if a certain combination is not mapped then it returns NULL
 const char * console_mapper (const struct pressedKeys * keyboardState)
 {
 	if(keyboardState->nbOfPressedKeys==1)

@@ -10,6 +10,8 @@ static char * buffer_read_start = console_read_buffer;
 static char * buffer_read_end = console_read_buffer;
 static uint8_t console_read_buffer_size;
 
+//receives a keyboard state struct and adds the corresponding utf8 encoded string to the console read buffer
+//Arguments : current keyboard state updated by the keryboard driver
 void newInputToConsole(const struct pressedKeys * keyboardState)
 {
 	const char * mapped_utf8 = console_mapper(keyboardState);
@@ -27,6 +29,13 @@ void newInputToConsole(const struct pressedKeys * keyboardState)
 }
 
 
+//This is where the read syscall to STDIN ends up
+//consumes the content of the read console buffer into memory pointed by dest
+//The function will read at most count bytes if there is that much present in the buffer
+//because the call is non blocking it returns what it can and does not wait for the 
+//count bytes to be available
+//Arguments : dest pointer to userspace array, maximum number of bytes we wish to read
+//Returns : the number of bytes actually consumed, could be 0 if the buffer was empty
 uint64_t read_from_console(void * dest,uint64_t count)
 {
 

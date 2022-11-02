@@ -2,7 +2,6 @@
 #define KEYBOARD_DRIVER_H_
 #include <stdint.h>
 void fetchKeyboardEvent();
-void initialiseKeyboard();
 struct pressedKeys
 {
 	uint16_t keys[4];

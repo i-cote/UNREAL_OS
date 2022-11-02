@@ -51,6 +51,7 @@ struct vbe_mode_info_structure
 uint16_t x = 0, y = 0;
 Color default_background = {0,0,0};
 
+//receives a pointer to a bitmap, its width and height  a position on the screen to draw it and a forground and background color and draws it
 void draw_bitmap(const void * bitmap, uint32_t x,uint32_t y, uint8_t width_in_bytes, uint8_t height_in_bytes, Color foreground, Color background)
 {
 	for(int i =0;i<height_in_bytes;i++)
@@ -127,6 +128,8 @@ void printNewline()
 	}
 }
 
+// receives a valid utf8 sequence and fetches the bitmap pointer from the psfu file
+// from the font_manager.c file then sends it to draw_bitmap along with the current cursor position
 void print_utf8(utf8_sequence utf8,uint64_t count,Color color)
 {
 	if (count==1 && *utf8 == '\n')
@@ -151,6 +154,9 @@ void print_utf8(utf8_sequence utf8,uint64_t count,Color color)
 	if (x > screen_data->width - get_font_glyph_width())
 		printNewline();
 }
+
+//The stream of bytes received from the write syscall could contain 
+//an escape sequence (identified by the bytes 0x1b 0x5b)indicating a command we check if that is the case here and executes the commands acordigly 
 int64_t check_console_driver_commands(const char * command)
 {
 	if(memcompare(command,"\x1b\x5bsetFontSize",strlen("\x1b\x5bsetFontSize"))==0)
@@ -169,6 +175,12 @@ int64_t check_console_driver_commands(const char * command)
 	return -1;
 }
 
+//This is where the write syscall to STDOUT ends up
+//str represents an utf8 encoded stream of bytes to be parsed 
+//and interpreted. The function parses it and everytime it finds a 
+//valid utf8 sequence it sends it out to be printed by print_utf8
+//if at some points it finds an invalid sequence within the stream of bytes
+//it prints the invalid sequence glyph and returns without handling the rest of the sequence
 void printStringColor(char *str, Color color)
 {
 	//Initialise font to default font
