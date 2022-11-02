@@ -2,6 +2,6 @@
 #include <shell.h>
 
 int main() {
-	shell();
+	shell(); // This is the entry point from the kernel to the userland
 	return 0;
 }

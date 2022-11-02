@@ -24,6 +24,7 @@ void help(args argsVec, int argsNum){
 // Prints on screen the registers of the screenshot taken previously
 void inforeg(args argsVec, int argsNum){
     uint64_t registerVector[REGISTERS] = {0};
+    // Copy the registers to the vector from the screenshot
     sys_memcpy_asm(registerVector,REGISTERS);
 
     printfColor("\n", white);
@@ -44,7 +45,6 @@ void inforeg(args argsVec, int argsNum){
     printfColor("R13: 0x%x\n", white,registerVector[2]);
     printfColor("R14: 0x%x\n", white,registerVector[1]);
     printfColor("R15: 0x%x\n", white,registerVector[0]);
-    
 }
 
 static uint32_t font_size = 16;

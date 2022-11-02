@@ -76,6 +76,7 @@ void waiting_command(){
     
 }
 
+// Checks if command is a valid command and executes it
 void reading_command(char command[MAX_LENGHT], args argsVec, int argsNum){
 
     int found = 0;
