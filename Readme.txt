@@ -1,31 +1,6 @@
-x64BareBones is a basic setup to develop operating systems for the Intel 64 bits architecture.
-
-The final goal of the project is to provide an entry point for a kernel and the possibility to load extra binary modules separated from the main kernel.
-
-Environment setup:
-1- Install the following packages before building the Toolchain and Kernel:
-
-nasm qemu gcc make
-
-2- Build the Toolchain
-
-Execute the following commands on the x64BareBones project directory:
-
-  user@linux:$ cd Toolchain
-  user@linux:$ make all
-
-3- Build the Kernel
-
-From the x64BareBones project directory run:
-
-  user@linux:$ make all
-
-4- Run the kernel
-
-From the x64BareBones project directory run:
-
-  user@linux:$ ./run.sh
-
-
-Author: Rodrigo Rearden (RowDaBoat)
-Collaborator: Augusto Nizzo McIntosh
+This toy project aims at creating a kernel running on the x86_64 architecture for educational purposes.
+The goal is to understand what is a kernel, its use in a computer system, the mecanisms through which it achieves its functionalities.
+The kernel is tested against qemu and operates in video mode.
+This means that the kernel takes care of rendering character glyphs before sending them out to the graphics card.
+It also implements its own utf8 engine meaning that it can display latin characters but it does also the print cyrillic alphabet.
+The code uses the x64BareBones bootloader in order to have an entry point with a processor that's not in real mode.
